@@ -29,10 +29,29 @@ public class RemoveDuplicatesFromArray {
 		return length+1;
 	}
 	
+	// Remove Duplicates more than two occurrences
+	static int removeDup2(int A[]){
+		int n = A.length;
+        if(n==0)return 0;
+        int length =0;
+        int occur =0;
+        for(int i=1;i<n;i++){
+            if(A[i]==A[length]&&occur<1){
+                occur++;
+                A[++length]=A[i];
+            }
+            else if(A[i]!=A[length]){
+                A[++length]=A[i];
+                occur=0;
+            }
+        }
+        return length+1;
+	}
+	
 	static public void main(String[]args){
 		// Remove Duplicates 1
-		int A[] ={1,1,1,2,2,2,3,4,5,6,7,7,7,8,9};
-		int length = removeDup1_1(A);
+		int A[] ={1,2,3,3,3,3,4,5,6,7,7,7,8,9};
+		int length = removeDup2(A);
 		for(int i=0;i<length;i++)
 			System.out.println(A[i]);
 		
