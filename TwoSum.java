@@ -1,11 +1,13 @@
 package LinearList;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class TwoSum {
+	// Wrong solution: HashMap doesn't allow multiple values for same keys
 	static public Map<Integer,Integer> twoSum(int[]num, int target){
 		Map<Integer,Integer> ans, input;
 		ans= new HashMap<>();
@@ -24,33 +26,32 @@ public class TwoSum {
 		}
 		return ans;
 	}
+	// Right solution: With O(N) worst space complexity
 	static public int[] twoSumSum(int[] numbers, int target) {
-	    HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		int[] result = new int[2];
-	 
-		for (int i = 0; i < numbers.length; i++) {
-			if (map.containsKey(numbers[i])) {
-				int index = map.get(numbers[i]);
-				result[0] = index+1 ;
-				result[1] = i+1;
+		int res[] = new int[2];
+		Map<Integer,Integer> input = new HashMap<>();
+		for(int i=0;i<numbers.length;i++){
+			
+			if(input.containsKey(numbers[i])){
+				res[0]= input.get(numbers[i])+1;
+				res[1]= i+1;
 				break;
-			} else {
-				map.put(target - numbers[i], i);
 			}
+			else{
+				int rest = target - numbers[i];
+				input.put(rest, i);
+			}
+			
 		}
-	 
-		return result;
-	    }
+		return res;
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] num ={1,3,4,5};
 		int[] num2 ={0,3,4,0};
 		Map inputMap = new HashMap();
-		for(int i=0;i<num2.length;i++){
-			inputMap.put(num2[i], i);
-		}
-		int target = 9;
-		System.out.println(inputMap);
+		
+		System.out.println(Arrays.toString(twoSumSum(num2,0)));
 	}
 
 }
