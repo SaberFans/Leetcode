@@ -28,6 +28,34 @@ public class ThreeSum {
 			quicksort(num,k+1,end);
 		}
 	}
+	// Wrong solution, can't narrow down the range by right strategy!
+	static public List<List<Integer>> my3Sum(int[]num){
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		if(num.length<3) return res;
+		quicksort(num,0,num.length);
+		int target = 0;
+		
+		for(int i=1;i<num.length-1;i++)
+		{
+			int first, end;
+			first = i-1;
+			end = num.length-1;
+			while(first<i&&i<end)
+				if(num[first]+num[i]+num[end]>target){
+					end--;
+				}
+				else if(num[first]+num[i]+num[end]<target){
+					first++;
+				}	
+				else{
+					res.add(Arrays.asList(i,first,end));
+					first++;
+					end--;
+				}
+		}
+		return res;
+	}
+	// Right Strategy
 	static public List<List<Integer>> threeSum(int[] num) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
 		if(num.length<3) return res;
@@ -59,7 +87,7 @@ public class ThreeSum {
 		// TODO Auto-generated method stub
 		int num[]={-4,1,2,2,3};
 		
-		System.out.println(threeSum(num));
+		System.out.println(my3Sum(num));
 	}
 
 }
