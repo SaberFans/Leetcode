@@ -28,18 +28,38 @@ public class ThreeSum {
 			quicksort(num,k+1,end);
 		}
 	}
-	public List<List<Integer>> threeSum(int[] num) {
-		quicksort(num,0,num.length);
-		System.out.println(Arrays.toString(num));
+	static public List<List<Integer>> threeSum(int[] num) {
 		List<List<Integer>> res = new ArrayList<List<Integer>>();
+		if(num.length<3) return res;
+		quicksort(num,0,num.length);
+		int target = 0;
+		
+		for(int i=0;i<num.length-2;i++)
+		{
+			int first, end;
+			first = i+1;
+			end = num.length-1;
+			while(first<end)
+				if(num[first]+num[i]+num[end]>target){
+					end--;
+				}
+				else if(num[first]+num[i]+num[end]<target){
+					first++;
+				}	
+				else{
+					res.add(Arrays.asList(i,first,end));
+					first++;
+					end--;
+				}
+		}
 		return res;
         
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int num[]={2,1};
-		quicksort(num, 0, num.length);
-		System.out.println(Arrays.toString(num));
+		int num[]={-4,1,2,2,3};
+		
+		System.out.println(threeSum(num));
 	}
 
 }
