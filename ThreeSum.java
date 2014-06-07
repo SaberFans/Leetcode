@@ -2,6 +2,7 @@ package LinearList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class ThreeSum {
@@ -75,19 +76,35 @@ public class ThreeSum {
 					first++;
 				}	
 				else{
-					res.add(Arrays.asList(i,first,end));
+					res.add(Arrays.asList(num[i],num[first],num[end]));
 					first++;
 					end--;
 				}
 		}
+		/*for(int i=0;i<res.size();i++){
+		    List<Integer> orig = res.get(i);
+			for(int j=i+1;j<res.size();j++){
+			    List<Integer> tmp  = res.get(j);
+				if(tmp.get(0)==orig.get(0) &&orig.get(1)==tmp.get(1))
+					res.remove(j);
+			}
+		}*/
+		/**********************************
+		/* Efficient way to remove duplicate tuple.
+		 * check the implementation. 
+		 * ********************************/
+		HashSet hs = new HashSet();
+		hs.addAll(res);
+		res.clear();
+		res.addAll(hs);
 		return res;
         
     }
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int num[]={-4,1,2,2,3};
+		int num[]={-2,0,1,1,2};
 		
-		System.out.println(my3Sum(num));
+		System.out.println(threeSum(num));
 	}
 
 }
