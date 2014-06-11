@@ -27,8 +27,9 @@ public class FourSum {
 		}
 	}
 	static public List<List<Integer>> fourSum(int[] num, int target) {
+		List<List<Integer>> res = new ArrayList<>();
+		if(num.length<4) return res;
 		quicksort(num,0,num.length);
-	 	List<List<Integer>> res = new ArrayList<>();
         	for(int i=0;i<num.length-3;i++){
         		for(int j=i+1;j<num.length-2;j++){
 	        		int first = j+1, end =num.length-1;
