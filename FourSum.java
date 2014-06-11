@@ -49,6 +49,10 @@ public class FourSum {
 	        		}
         		}
         	}
+        	HashSet hs = new HashSet();
+        	hs.addAll(res);
+        	res.clear();
+        	res.addAll(hs);
         	return res;
     	}
 	public static void main(String[] args) {
