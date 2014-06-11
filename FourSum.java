@@ -49,12 +49,26 @@ public class FourSum {
 	        		}
         		}
         	}
-        	HashSet hs = new HashSet();
-        	hs.addAll(res);
-        	res.clear();
-        	res.addAll(hs);
-        	return res;
-    	}
+        	// 1.
+        	// HashSet hs = new HashSet();
+        	// hs.addAll(res);
+        	// res.clear();
+        	// res.addAll(hs);
+        	HashMap map = new HashMap();
+        	Object PRESENT = new Object();
+	        /* 2
+	         * ConcurrentlyModificationException
+	        for(List a: res){
+	        	if(map.put(a, PRESENT)!=null)
+	        		res.remove(a);
+	        }*/
+	        Iterator it = res.iterator();
+	        while(it.hasNext()){
+	            if(map.put(it.next(),PRESENT)!=null)
+	                it.remove();
+	        }
+	        	return res;
+	}				
 	public static void main(String[] args) {
 		int[]num= {1, 0, -1, 0, -2, 2};
 		List a =fourSum(num,0);
