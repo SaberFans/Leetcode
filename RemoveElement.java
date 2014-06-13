@@ -21,14 +21,14 @@ public class RemoveElement {
 	        	}
 	        }
 	        return length;
-    }
-    public static int removeElement2(int[]A,int elem){
-    	int index=0;
-    	for(int a:A){
-    		if(a!=elem) A[index++] = a;
-    	}
-    	return index;
-    }
+	}
+	public static int removeElement2(int[]A,int elem){
+		int index=0;
+		for(int a:A){
+		    if(a!=elem) A[index++] = a;
+		}
+		return index;
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[]num ={1,3,3,3,3,4,5,2};
