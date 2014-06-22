@@ -1,6 +1,11 @@
 package LinearList;
 
 public class TrappingRainWater {
+	/*
+	 *  Determine the left and right height maximum value for each index
+	 *  and preset the most left and right maximum value by the its own height
+	 */
+
 	static int trap(int[]A,int n){
 		int sum=0;
 		int left[]=new int[n];
