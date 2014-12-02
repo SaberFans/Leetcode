@@ -1,7 +1,5 @@
 package LinearList;
 
-import java.util.Arrays;
-
 public class ValidSudoku {
 	static void fill(Boolean[]check){
 		for(int i=0;i<check.length;i++){

@@ -1,7 +1,5 @@
 package LinearList;
 
-import java.util.Arrays;
-
 public class PermutationSequence {
 	// coding scheme A(i) = k/(n-i)!
 	public static String getPermutation(int n, int k) {

@@ -1,7 +1,5 @@
 package LinearList;
 
-import java.util.Arrays;
-
 public class ThreeSumClosest {
 	static int partition(int[]sum,int first,int end){
 		int pivot = end-1;

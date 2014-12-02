@@ -1,4 +1,4 @@
-package plainJava;
+package PlainJava;
 
 import java.util.Arrays;
 
