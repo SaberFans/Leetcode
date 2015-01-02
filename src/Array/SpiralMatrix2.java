@@ -25,9 +25,16 @@ public class SpiralMatrix2 {
 	 
 	@Test
 	public void testprint(){
-		printArray(generateMatrix(4));
+		printArray(generateMatrix(3));
 		
 	}
+
+    @Test
+    public void testprint6(){
+        printArray(generateMatrix(6));
+
+    }
+
 	public void printArray(int[][] array){
 		for(int i=0;i<array.length;i++){
 			for(int j=0;j<array[i].length;j++)
@@ -39,26 +46,34 @@ public class SpiralMatrix2 {
 	public int[][] generateMatrix(int n) {
 		int[][] arr = new int[n][n];
 
+        int size = arr.length;
 		int start = 1;
 		int spiralstart = 0;
 		
 		while(n>0) {
+            if(n==1){
+                arr[spiralstart][spiralstart] = start;
+                break;
+            }
+
 			for(int i=spiralstart;i<n+spiralstart-1;i++){
 //				System.out.println(spiralstart+ " "+ i);
-				arr[spiralstart][i] = start++;
+                arr[spiralstart][i] = start++;
 			}
 			for(int i=spiralstart;i<n+spiralstart-1;i++){
 //				System.out.println(i+ " "+ (n-1-spiralstart));
-				arr[i][n-1-spiralstart] = start++;
+                arr[i][size-1-spiralstart] = start++;
 			}
 			
-			for(int i=n-spiralstart-1;i>spiralstart;i--){
+			for(int i=size-spiralstart-1;i>spiralstart;i--){
 //				System.out.println(i+ " "+ (n-1-spiralstart));
-				arr[n-1-spiralstart][i] = start++;
+
+				arr[size-1-spiralstart][i] = start++;
 			}
 			
-			for(int i=n-spiralstart-1;i>spiralstart;i--){
+			for(int i=size-spiralstart-1;i>spiralstart;i--){
 				//
+
 				arr[i][spiralstart] = start++;
 			}
 			spiralstart++;
