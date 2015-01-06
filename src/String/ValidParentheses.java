@@ -11,7 +11,8 @@ import org.junit.Test;
  * Validate the parentheses string input using stack
  */
 public class ValidParentheses {
-	@Test
+
+    @Test
 	public void test() {
 		char c = 'c';
 		Character cc = new Character('c');
@@ -32,11 +33,11 @@ public class ValidParentheses {
 
 	@Test
 	public void test4() {
-//		String s = "([]{}){[]}{}";
-//		assertEquals(true, isValid(s));
-		System.out.println('('-')');
-		System.out.println('{'-'}');
-		System.out.println('['-']');
+ 		String s = "([]{}){[]}{}";
+ 		assertEquals(true, isValid(s));
+
+
+
 	}
 	
 	
@@ -47,7 +48,7 @@ public class ValidParentheses {
 		char leftcurly = '{', rightcurly = '}';
 		char leftbracket = '[', rightbracket = ']';
 
-		Stack<Character> stack = new Stack<Character>();
+		Stack<Character> stack = new Stack<>();
 		for (int i = 0; i < s.length(); i++) {
 			char ch = s.charAt(i);
 			if (ch == leftbracket || ch ==leftcurly || ch ==leftparenthesis) {
@@ -56,16 +57,14 @@ public class ValidParentheses {
 				try {
 					char left = stack.pop();
 					int dis = ch -left;
-					if(dis==1&&ch==leftparenthesis || dis==2&&ch!=leftparenthesis){
-						
-					}
-					else{
-						stack.push(rightbracket);
-					}
-					// pull should be leftbracket '('
+					if(dis!=1 && dis!=2){
+                        stack.push(ch);
+                        break;
+                    }
 				} catch (Exception e) {
 					// ommit the exception
-					stack.push(rightbracket);
+					stack.push(ch);
+                    break;
 				}
 			}
 		}
