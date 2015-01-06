@@ -1,6 +1,6 @@
 package Array;
 
-import static org.junit.Assert.assertThat;
+
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -40,21 +40,14 @@ public class GenerateParentheses {
 	}
 	
 	@Test
-	public void test1(){
-		String str1 = "()";
-		String str2 = ")(";
-		System.out.println();
-	}
-	
-	@Test
 	public void test() {
 		List<String> str = new ArrayList<String>();
 		str.addAll(Arrays.asList(new String[] { "((()))", "(()())", "()(())","(())()", "()()()" }));
 		Collections.sort(str);
-		System.out.println(str);
+
 		List<String> actual = generateParenthesis(3);
 		Collections.sort(actual);
-		System.out.println(actual);
+
 		assertTrue(str.equals(actual));
 
 	}
