@@ -60,7 +60,7 @@ public class ValidParentheses {
 						
 					}
 					else{
-						stack.push(rightbracket);
+						stack.push(ch);
 					}
 					// pull should be leftbracket '('
 				} catch (Exception e) {
