@@ -19,14 +19,16 @@ public class Combinations {
 	void generateCombination(List<List<Integer>> combinations, List<Integer> set, int index,
 			int n, int k) {
 		if(set.size() ==k){
+			// only add in the reference, not copy the value
 			combinations.add(set);
 			return;
 		}
 		for(int i=index; i<=n; i++){
-			 
-			set.add(i);
-			generateCombination(combinations, set, i+1, n, k);
-			set.remove(set.size()-1);
+			// Java, need to allocate another copy to work
+			List<Integer> copyofset = new ArrayList<>(set);
+			// this copyset gets reset every iteration
+			copyofset.add(i);
+			generateCombination(combinations, copyofset, i+1, n, k);
 		}
 	}
 
