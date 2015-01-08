@@ -38,7 +38,7 @@ public class Combinations {
 	}
 
 	public List<List<Integer>> combine(int n, int k) {
-		List<List<Integer>> lofsets = null;
+		List<List<Integer>> lofsets = new ArrayList<>();
 		List<Integer> set = new ArrayList<>();
 
 		generateCombination(lofsets, set, 1, n, k);
