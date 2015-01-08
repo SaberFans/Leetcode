@@ -1,5 +1,6 @@
 package Backtracking;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,44 +8,41 @@ import org.junit.Test;
 
 public class Combinations {
 
-	/** recursive way to generate combinations
+	/**
+	 * Backtracking way to generate combinations
+	 * 
 	 * @param combinations
 	 * @param index
 	 * @param n
 	 * @param k
 	 */
-	void generateCombination(List<List<Integer>> combinations, int index, int n, int k) {
-		if(k==0){
+	void generateCombination(List<List<Integer>> combinations, List<Integer> set, int index,
+			int n, int k) {
+		if(set.size() ==k){
+			combinations.add(set);
 			return;
 		}
-		List<Integer> set = new ArrayList<Integer>();
-		
-		for(int i=index; i<n-k; i++){
+		for(int i=index; i<=n; i++){
+			 
 			set.add(i);
+			generateCombination(combinations, set, i+1, n, k);
+			set.remove(set.size()-1);
 		}
-		combinations.add(set);
-		generateCombination(combinations, index+1, n, k);
-		
 	}
 
 	@Test
-	public void test(){
+	public void test() {
 		List<List<Integer>> lofsets = new ArrayList<>();
-		
-		 
-		
+		lofsets = combine(4, 3);
 		System.out.println(lofsets);
 	}
-	
-	@Test
-	public void test2(){
-		
-	}
-	
-	
-	public List<List<Integer>> combine(int n, int k) {
-		List<List<Integer>> lofsets = new ArrayList<>();
 
+	public List<List<Integer>> combine(int n, int k) {
+		List<List<Integer>> lofsets = null;
+		List<Integer> set = new ArrayList<>();
+
+		generateCombination(lofsets, set, 1, n, k);
+		
 		return lofsets;
 	}
 }
