@@ -7,8 +7,10 @@ import java.util.List;
 import org.junit.Test;
 
 /**
- * Given an integer n, return a n-queue solution Return a board configuration,
- * in which the 'Q' and '.' represent the Queue and the space respectively.
+ * Given an integer n, return a N-Queen solution Return a board configuration,
+ * in which the 'Q' and '.' represent the Queen and the or space in the board respectively.
+ * 
+ * N-Queen solution requires that no two queens be placed in the same column or row or diagonal.  
  */
 public class NQueens {
 
@@ -20,6 +22,7 @@ public class NQueens {
 		return true;
 	}
 	
+
 	void calculateNQ(List<String[]> boardres, List<String> board, int mark[], int n) {
 		if(isBoardFull(mark)){
 			boardres.add(board.toArray(new String[board.size()]));
@@ -27,6 +30,9 @@ public class NQueens {
 		}
 		char line[] = new char[n];
 		Arrays.fill(line, '.');
+		/*
+		 * This is the wrong implementation, forgot to check the diagonal !!
+		 */
 		for(int i=0;i<n;i++){
 			if(mark[i]==0){
 				List<String> boardcopy= new ArrayList<>(board);
@@ -60,8 +66,8 @@ public class NQueens {
 	
 	
 	@Test
-	public void test(){
-		List<String[]> boards = solveNQueens(3);
+	public void testprintout(){
+		List<String[]> boards = solveNQueens(8);
 		
 		for(String x[]: boards){
 			System.out.println(">>>>>>>>");
@@ -70,5 +76,10 @@ public class NQueens {
 			}
 			System.out.println(">>>>>>>>");
 		}
+	}
+	
+	@Test
+	public void validateBoards(){
+		
 	}
 }
