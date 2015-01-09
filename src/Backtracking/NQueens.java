@@ -22,26 +22,29 @@ public class NQueens {
 		return true;
 	}
 	
-
-	void calculateNQ(List<String[]> boardres, List<String> board, int mark[], int n) {
-		if(isBoardFull(mark)){
+	
+	void calculateNQ(List<String[]> boardres, List<String> board, int row, int markrow[], int markcol[], int n) {
+		//if(isBoardFull(markrow)){
+		if(row==n+1){
 			boardres.add(board.toArray(new String[board.size()]));
 			return;
 		}
 		char line[] = new char[n];
 		Arrays.fill(line, '.');
 		/*
-		 * This is the wrong implementation, forgot to check the diagonal !!
+		 * Don't Forgot to check the diagonal !!
 		 */
 		for(int i=0;i<n;i++){
-			if(mark[i]==0){
+			if(markrow[i]==0 && Math.abs(markcol[row-1]-i-1)>1){
 				List<String> boardcopy= new ArrayList<>(board);
 				
 				line[i] = 'Q';
 				boardcopy.add(Arrays.toString(line));
-				mark[i] = 1;
-				calculateNQ(boardres, boardcopy, mark, n);
-				mark[i] = 0;
+				markrow[i] = 1;
+				markcol[row] = i+1;
+				calculateNQ(boardres, boardcopy,  row+1, markrow, markcol,  n);
+				markrow[i] = 0;
+//				markcol[col] = 0;
 				line[i] = '.';
 			}
 		}
@@ -49,11 +52,13 @@ public class NQueens {
 	
 	public List<String[]> solveNQueens(int n) {
 		List<String[]> boardres = new ArrayList<>();
-		int mark[] = new int[n];
+		int markrow[] = new int[n];
+		int markcol[] = new int[n+1];
 		List<String> board = new ArrayList<>(); 
-		Arrays.fill(mark, 0);
+		Arrays.fill(markrow, 0);
+		Arrays.fill(markcol, -1);
 		
-		calculateNQ(boardres, board, mark, n);
+		calculateNQ(boardres, board, 1, markrow, markcol, n);
 		return boardres;
 	}
 	
@@ -67,7 +72,7 @@ public class NQueens {
 	
 	@Test
 	public void testprintout(){
-		List<String[]> boards = solveNQueens(8);
+		List<String[]> boards = solveNQueens(9);
 		
 		for(String x[]: boards){
 			System.out.println(">>>>>>>>");
