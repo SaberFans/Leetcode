@@ -8,83 +8,82 @@ import org.junit.Test;
 
 /**
  * Given an integer n, return a N-Queen solution Return a board configuration,
- * in which the 'Q' and '.' represent the Queen and the or space in the board respectively.
+ * in which the 'Q' and '.' represent the Queen and the or space in the board
+ * respectively.
  * 
- * N-Queen solution requires that no two queens be placed in the same column or row or diagonal.  
+ * N-Queen solution requires that no two queens be placed in the same column or
+ * row or diagonal.
  */
 public class NQueens {
 
-	boolean isBoardFull(int mark[]){
-		for(int a: mark){
-			if(a==0)
-				return false;
-		}
-		return true;
-	}
-	
-	
-	void calculateNQ(List<String[]> boardres, List<String> board, int row, int markrow[], int markcol[], int n) {
-		//if(isBoardFull(markrow)){
-		if(row==n+1){
-			boardres.add(board.toArray(new String[board.size()]));
+	void calculateNQ(List<String[]> boardres, int row, int markcol[], int n) {
+		if (row == n + 1) {
+			String[] line = new String[n];
+			for (int i = 0; i < n; i++) {
+				String str = new String();
+				for (int j = 0; j < n; j++) {
+					if (j + 1 == markcol[i + 1]) {
+						str = str.concat("Q");
+					} else {
+						str = str.concat(".");
+					}
+					line[i] = str;
+				}
+			}
+			boardres.add(line);
 			return;
 		}
-		char line[] = new char[n];
-		Arrays.fill(line, '.');
-		/*
-		 * Don't Forgot to check the diagonal !!
-		 */
-		for(int i=0;i<n;i++){
-			if(markrow[i]==0 && Math.abs(markcol[row-1]-i-1)>1){
-				List<String> boardcopy= new ArrayList<>(board);
-				
-				line[i] = 'Q';
-				boardcopy.add(Arrays.toString(line));
-				markrow[i] = 1;
-				markcol[row] = i+1;
-				calculateNQ(boardres, boardcopy,  row+1, markrow, markcol,  n);
-				markrow[i] = 0;
-//				markcol[col] = 0;
-				line[i] = '.';
+
+		for (int i = 0; i < n; i++) {
+			boolean allow = true;
+			for (int j = 0; j < row-1; j++) {
+				if (markcol[j] == i+1 || Math.abs(markcol[row - 1] - i - 1) > 1) {
+					allow = false;
+					break;
+				}
 			}
+			if (allow) {
+				markcol[row] = i + 1;
+				calculateNQ(boardres, row + 1, markcol, n);
+				// markcol[col] = 0;
+			}
+
 		}
 	}
-	
+
 	public List<String[]> solveNQueens(int n) {
 		List<String[]> boardres = new ArrayList<>();
-		int markrow[] = new int[n];
-		int markcol[] = new int[n+1];
-		List<String> board = new ArrayList<>(); 
-		Arrays.fill(markrow, 0);
+
+		int markcol[] = new int[n + 1];
+
 		Arrays.fill(markcol, -1);
-		
-		calculateNQ(boardres, board, 1, markrow, markcol, n);
+
+		calculateNQ(boardres, 1, markcol, n);
 		return boardres;
 	}
-	
+
 	@Test
-	public void testChar2Str(){
-		char charr [] =new char[4];
+	public void testChar2Str() {
+		char charr[] = new char[4];
 		Arrays.fill(charr, '1');
 		System.out.println(Arrays.toString(charr));
 	}
-	
-	
+
 	@Test
-	public void testprintout(){
+	public void testprintout() {
 		List<String[]> boards = solveNQueens(9);
-		
-		for(String x[]: boards){
+
+		for (String x[] : boards) {
 			System.out.println(">>>>>>>>");
-			for(String t: x){
+			for (String t : x) {
 				System.out.println(t);
 			}
 			System.out.println(">>>>>>>>");
 		}
 	}
-	
+
 	@Test
-	public void validateBoards(){
-		
+	public void validateBoards() {
+
 	}
 }
