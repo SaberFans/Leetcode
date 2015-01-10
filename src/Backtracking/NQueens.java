@@ -20,14 +20,14 @@ public class NQueens {
 		if (row == n + 1) {
 			String[] line = new String[n];
 			for (int i = 0; i < n; i++) {
-				String str = new String();
+				StringBuilder str = new StringBuilder();
 				for (int j = 0; j < n; j++) {
 					if (j + 1 == markcol[i + 1]) {
-						str = str.concat("Q");
+						str.append("Q");
 					} else {
-						str = str.concat(".");
+						str.append(".");
 					}
-					line[i] = str;
+					line[i] = str.toString();
 				}
 			}
 			boardres.add(line);
@@ -36,8 +36,8 @@ public class NQueens {
 
 		for (int i = 0; i < n; i++) {
 			boolean allow = true;
-			for (int j = 0; j < row-1; j++) {
-				if (markcol[j] == i+1 || Math.abs(markcol[row - 1] - i - 1) > 1) {
+			for (int j = 1; j < row; j++) {
+				if (markcol[j] == i+1 || Math.abs(markcol[j] - i - 1) == row-j) {
 					allow = false;
 					break;
 				}
@@ -45,7 +45,6 @@ public class NQueens {
 			if (allow) {
 				markcol[row] = i + 1;
 				calculateNQ(boardres, row + 1, markcol, n);
-				// markcol[col] = 0;
 			}
 
 		}
@@ -80,7 +79,8 @@ public class NQueens {
 			}
 			System.out.println(">>>>>>>>");
 		}
-	}
+        System.out.println(boards.size());
+    }
 
 	@Test
 	public void validateBoards() {
