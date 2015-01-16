@@ -19,8 +19,9 @@ public class BinaryTreeInOrderTraversal {
             return tree;
 
         nodes.push(root);
-        TreeNode oleft = null;
+
         while(!nodes.isEmpty()){
+            TreeNode oleft = null;
             root = nodes.peek();
             if(!visited.isEmpty()){
                 oleft = visited.peek();
@@ -39,6 +40,8 @@ public class BinaryTreeInOrderTraversal {
                 tree.add(root.val);
                 nodes.pop();
                 visited.pop();
+                if(root.right!=null)
+                    nodes.push(root.right);
             }
         }
 
