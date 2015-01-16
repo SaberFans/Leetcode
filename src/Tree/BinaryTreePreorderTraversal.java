@@ -29,16 +29,6 @@ import org.junit.Test;
  */
 public class BinaryTreePreorderTraversal {
 
-    public class TreeNode {
-	int val;
-	TreeNode left;
-	TreeNode right;
-
-	TreeNode(int x) {
-	    val = x;
-	}
-    }
-
     /**
      * Use Stack as the place where to
      * put the tree nodes.
