@@ -11,7 +11,7 @@ import java.util.Stack;
  */
 public class BinaryTreeInOrderTraversal {
 
-    public List<Integer> preorderTraversal(TreeNode root) {
+    public List<Integer> inOrderTraversal(TreeNode root) {
         List<Integer> tree = new ArrayList<>();
         Stack<TreeNode> nodes = new Stack<>();
         Stack<TreeNode> visited = new Stack<>();
@@ -42,6 +42,36 @@ public class BinaryTreeInOrderTraversal {
                 visited.pop();
                 if(root.right!=null)
                     nodes.push(root.right);
+            }
+        }
+
+        return tree;
+    }
+
+    /**
+     * Travel the binary tree In-Order way.
+     *
+     * @param root tree topmost root
+     * @return in
+     */
+    public List<Integer> inOrderTraversalE(TreeNode root) {
+        List<Integer> tree = new ArrayList<>();
+        Stack<TreeNode> nodes = new Stack<>();
+
+        if(root==null)
+            return tree;
+        // Inserting node only when it's first met,
+        // this avoid adding duplicate nodes.
+        while(root!=null || !nodes.isEmpty()){
+
+            if(root!=null){
+                nodes.push(root);
+                root = root.left;
+            }
+            else{
+                tree.add(nodes.peek().val);
+                root = nodes.pop();
+                root = root.right;
             }
         }
 
