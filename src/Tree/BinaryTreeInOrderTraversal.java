@@ -1,74 +1,84 @@
-
 package Tree;
 
 import java.util.*;
 
 import org.junit.Test;
+
 /**
- * Definition for binary tree public class TreeNode { int val; TreeNode
- * left; TreeNode right; TreeNode(int x) { val = x; } }
+ * In-Order Binary tree traversal
  */
 public class BinaryTreeInOrderTraversal {
 
-    public List<Integer> inorderTraversal(TreeNode root) {
-	List<Integer> list = new ArrayList<>();
-	Stack<TreeNode> nodes = new Stack<>();;
-	if(root==null)
-	    return list;
-	nodes.push(root);
-	
-	while (!nodes.isEmpty()) {
-	    
-	    if(root.left!=null){
-		nodes.push(root.left);
-		root = root.left;
-	    }
-	    else{
-		list.add(root.val);
-		root = nodes.pop();
-		if(root.right != null){
-		    nodes.push(root.right);
-		    root = root.right;
-		}
-		else{
-		    if(nodes.peek()!=null && nodes.peek().right!=null){
-			root = nodes.pop();
-		    }
-		}	
-		
-	    }
-	}
-	return list;
-	
+    public List<Integer> inOrderTraversal(TreeNode root) {
+        List<Integer> tree = new ArrayList<>();
+        Stack<TreeNode> nodes = new Stack<>();
+        Stack<TreeNode> visited = new Stack<>();
+        if(root==null)
+            return tree;
+
+        nodes.push(root);
+
+        while(!nodes.isEmpty()){
+            TreeNode oleft = null;
+            root = nodes.peek();
+            if(!visited.isEmpty()){
+                oleft = visited.peek();
+            }
+            if(root.left==null){
+                tree.add(root.val);
+                nodes.pop();
+                if(root.right!=null)
+                    nodes.push(root.right);
+            }
+            else if(root.left!=oleft){
+                visited.push(root.left);
+                nodes.push(root.left);
+            }
+            else{
+                tree.add(root.val);
+                nodes.pop();
+                visited.pop();
+                if(root.right!=null)
+                    nodes.push(root.right);
+            }
+        }
+
+        return tree;
     }
-    
-    
+
     /**
-     * Recursively to print the In-Order traversal sequence of BT.
-     * @param root
-     * @return
+     * Travel the binary tree In-Order way.
+     *
+     * @param root tree topmost root
+     * @return in
      */
-    List<Integer> list = new ArrayList<>();
-    public List<Integer> inorderTraversalRecursive(TreeNode root) {
-	if(root==null)
-	    return list;
-	inorderTraversal(root.left);
-	list.add(root.val);
-	inorderTraversal(root.right);
-	
-	return list;
+    public List<Integer> inOrderTraversalE(TreeNode root) {
+        List<Integer> tree = new ArrayList<>();
+        Stack<TreeNode> nodes = new Stack<>();
+
+        if(root==null)
+            return tree;
+        // Inserting node only when it's first met,
+        // this avoid adding duplicate nodes.
+        while(root!=null || !nodes.isEmpty()){
+
+            if(root!=null){
+                nodes.push(root);
+                root = root.left;
+            }
+            else{
+                tree.add(nodes.peek().val);
+                root = nodes.pop();
+                root = root.right;
+            }
+        }
+
+        return tree;
     }
-    
+
     @Test
     public void test(){
-	TreeNode n1 = new TreeNode(1);
-	TreeNode n2 = new TreeNode(6);
-	TreeNode n3 = new  TreeNode(3);
-	n1.left = n2; n1.right = n3;
-	n2.left = n2.right = n3.left = n3.right = null;
-	List<Integer> tr = inorderTraversal(n1);
-	System.out.println(n1.val);
-	System.out.println(tr);
-    }	
-    
+
+    }
+
 }
