@@ -1,14 +1,3 @@
-/*------------------------------------------------------------------------------
- *******************************************************************************
- * COPYRIGHT Ericsson 2015
- *
- * The copyright to the computer program(s) herein is the property of
- * Ericsson Inc. The programs may be used and/or copied only with written
- * permission from Ericsson Inc. or in accordance with the terms and
- * conditions stipulated in the agreement/contract under which the
- * program(s) have been supplied.
- *******************************************************************************
- *----------------------------------------------------------------------------*/
 package Tree;
 
 import java.util.*;
@@ -17,27 +6,8 @@ import org.junit.Test;
 
 /**
  * Pre-order traversal of binary tree
- * Definition for binary tree:
- * public class TreeNode{
- *      int val;
- *      TreeNode left;
- *      TreeNode right;
- *      TreeNode(int x) {
- *              val = x;
- *      }
- * }
  */
 public class BinaryTreePreorderTraversal {
-
-    public class TreeNode {
-	int val;
-	TreeNode left;
-	TreeNode right;
-
-	TreeNode(int x) {
-	    val = x;
-	}
-    }
 
     /**
      * Use Stack as the place where to
@@ -64,9 +34,7 @@ public class BinaryTreePreorderTraversal {
 	}
 	return lint;
     }
-    
-    
-    
+   
     /**
      * Recursive way to fetch the pre-order sequence.
      * 
