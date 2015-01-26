@@ -33,7 +33,8 @@ public class BalancedBST {
     /***********************************************************************/
     
     /**
-     * Top-Down Strategy as the quick implementation.
+     * Another quick bottom-up implementation
+     * 
      * @param root
      * @return
      */
@@ -41,9 +42,7 @@ public class BalancedBST {
 	boolean balance = false;
 	if(root==null)
 	    return false;
-	
-	boolean left =  isBalanced(root.left);
-	boolean right = isBalanced(root.right); 
+
 	
 	return balance;
     }
