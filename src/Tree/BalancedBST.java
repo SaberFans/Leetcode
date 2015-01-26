@@ -6,45 +6,59 @@ package Tree;
  */
 public class BalancedBST {
     /***********************************************************************/
-    /**********Slow Implementation, redundant calculation for depth*********/
+    /**
+     * *******Slow Implementation, redundant calculation for depth********
+     */
     int depth(TreeNode root) {
-	if (root == null)
-	    return 0;
-	int letfDepth = 1 + depth(root.left);
-	int rightDepth = 1 + depth(root.right);
+        if (root == null)
+            return 0;
+        int letfDepth = 1 + depth(root.left);
+        int rightDepth = 1 + depth(root.right);
 
-	return Math.max(letfDepth, rightDepth);
+        return Math.max(letfDepth, rightDepth);
     }
 
     public boolean isBalanced(TreeNode root) {
-	boolean depthBalanced = false;
-	
-	if(root==null)
-	    return true;
-	
-	int left = depth(root.left);
-	int right = depth(root.right);
-	
-	depthBalanced = Math.abs(left-right)>1?false:true;
-	
-	    
-	return depthBalanced && isBalanced(root.left) && isBalanced(root.right);
+        boolean depthBalanced = false;
+
+        if (root == null)
+            return true;
+
+        int left = depth(root.left);
+        int right = depth(root.right);
+
+        depthBalanced = Math.abs(left - right) > 1 ? false : true;
+
+
+        return depthBalanced && isBalanced(root.left) && isBalanced(root.right);
     }
     /***********************************************************************/
-    
-    /**
-     * Another quick bottom-up implementation
-     * 
-     * @param root
-     * @return
-     */
-    public boolean isBalancedQuick(TreeNode root){
-	boolean balance = false;
-	if(root==null)
-	    return false;
 
-	
-	return balance;
+    /**
+     * Top-Down Strategy as the quick implementation.
+     *
+     * @param root parent root
+     * @return balanced or not
+     */
+    public boolean isBalancedQuick(TreeNode root) {
+        int val = balanceValue(root);
+        return val != -1;
     }
-    
+
+    int balanceValue(TreeNode root) {
+        if (root == null)
+            return 0;
+        int leftVal = balanceValue(root.left);
+        if (leftVal == -1)
+            return -1;
+        int rightVal = balanceValue(root.right);
+        if (rightVal == -1)
+            return -1;
+        if (Math.abs(leftVal - rightVal) > 1)
+            return -1;
+        else {
+            return Math.max(leftVal, rightVal) + 1;
+        }
+    }
+
 }
