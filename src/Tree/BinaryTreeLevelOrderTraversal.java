@@ -38,4 +38,35 @@ public class BinaryTreeLevelOrderTraversal {
 
         return levels;
     }
+
+    /**
+     * DFS, recursive solution.
+     * FYI. T(N) = O(N), n denotes the number of nodes.
+     */
+    public void levelOrder(int level, int curLevel, TreeNode root, List<Integer> levelK){
+        if(root==null)
+            return;
+        if(level==curLevel){
+            levelK.add(root.val);
+            return;
+        }
+        levelOrder(level, curLevel+1, root.left, levelK);
+        levelOrder(level, curLevel+1, root.right, levelK);
+    }
+    public List<List<Integer>> levelOrderDFS(TreeNode root) {
+        int height = height(root);
+        List<List<Integer>> levels = new ArrayList<>();
+        for(int i=1;i<=height;i++){
+            List<Integer> level = new ArrayList<>();
+            levelOrder(i, 1, root, level);
+            levels.add(level);
+        }
+        return levels;
+
+    }
+    int height(TreeNode root){
+        if(root==null)
+            return 0;
+        return Math.max(height(root.left), height(root.right))+1;
+    }
 }
