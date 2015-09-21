@@ -11,11 +11,18 @@ import java.util.Arrays;
  */
 public class RotateArray {
 	
-	public void roate(int[] num, int k){
+	/**
+	 * O(N) solution
+	 * @param num
+	 * @param k
+	 */
+	public void rotate(int[] num, int k){
 		if(num.length==0)
 			return;
 		int[] output = new int[num.length];
-		k = k%num.length;
+		
+		k = (2*num.length-k) % num.length;
+		
 		for(int i=0;i<num.length;i++){
 			if(k<num.length)
 				output[i] = num[k++];
@@ -25,13 +32,35 @@ public class RotateArray {
 		}
 		//num = output;
 		for(int i=0;i<num.length;i++)
-			num[i]= output[i];
-			
+			num[i]= output[i];	
 		
 	}
+	
+	void reverse(int []num, int start, int end){
+		for(int i=start;i<start+(end-start)/2;i++){
+			int reverse_tmp = num[i];
+			num[i] = num[end-(i-start)-1];
+			num[end-(i-start)-1] = reverse_tmp;
+		}
+	}
+	
+	/**
+	 * Reverse solution with less space cost
+	 * @param num
+	 * @param k
+	 */
+	public void rotate_reverse_zerospace(int[] num,int k){
+		k = k%num.length;
+		reverse(num, 0, num.length);
+		reverse(num, 0, k);
+		reverse(num, k, num.length);
+		
+	}
+	
 	public static void main(String[] args) {
-		int[] num = new int[]{1,2};
-		new RotateArray().roate(num, 1);
+		int[] num = new int[]{1,2,3,4};
+		//new RotateArray().roate(num, 4);
+		new RotateArray().rotate_reverse_zerospace(num, 4);
 		System.out.println(Arrays.toString(num));
 	}
 }
