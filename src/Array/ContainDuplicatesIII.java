@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
 
 import org.junit.Test;
 
@@ -20,6 +21,37 @@ import util.sorting.SortingAlgorithm;
  * 
  */
 public class ContainDuplicatesIII {
+	public static void main(String[] args) {
+
+		
+		//new ContainDuplicatesIII().containsNearbyAlmostDuplicate_bst(null, 0,0);
+		
+	}
+	public boolean containsNearbyAlmostDuplicate_bst(int[] nums, int k, int t){
+		if(nums==null || k==0){
+			return false;
+		}
+		TreeSet<Long> set = new TreeSet<>();
+				
+		for(int i=0;i<nums.length;i++){
+			Long floor = set.floor((long)nums[i]+t);
+			Long ceil = set.ceiling((long)nums[i]-t);
+			if( (floor!=null && floor>= nums[i])
+					|| (ceil!=null && ceil<=nums[i])){
+				return true;
+				
+			}
+			if(set.size()==k){
+
+				//set.pollFirst(); it's not polling always the first, it's polling the k window size difference element 
+				set.remove((long)nums[i-k]); 
+			}
+			set.add((long)nums[i]);
+		}
+		
+		 
+		return false;
+	}
 	/**
 	 * Bucketing partition algorithm, O(N) time, constant max space cost
 	 * @param nums
@@ -134,8 +166,9 @@ public class ContainDuplicatesIII {
 
 			boolean bool_2 = new ContainDuplicatesIII()
 					.containsNearbyAlmostDuplicate_bucketing(test[1], 2, 2);
-
-			assertTrue(bool_2 == bool_1);
+			boolean bool_3 = new ContainDuplicatesIII()
+			.containsNearbyAlmostDuplicate_bst(test[1], 2, 2);
+			assertTrue(bool_2 == bool_1 && bool_1==bool_3);
 	 
 	}
     @Test
@@ -146,8 +179,10 @@ public class ContainDuplicatesIII {
 
 			boolean bool_2 = new ContainDuplicatesIII()
 					.containsNearbyAlmostDuplicate_bucketing(PopulateDataUtil.test_array_ints_3, 2, 2);
-
-			assertTrue(bool_2 == bool_1);
+			boolean bool_3 = new ContainDuplicatesIII()
+					.containsNearbyAlmostDuplicate_bst(
+							PopulateDataUtil.test_array_ints_3, 2, 2);
+			assertTrue(bool_2 == bool_1 && bool_1 == bool_3);
 	 
 	}
     /**
@@ -163,8 +198,9 @@ public class ContainDuplicatesIII {
 
 			boolean bool_2 = new ContainDuplicatesIII()
 					.containsNearbyAlmostDuplicate_bucketing(test, 1,2147483647);
-
-			assertTrue(bool_2 == bool_1);
+			boolean bool_3 = new ContainDuplicatesIII()
+			.containsNearbyAlmostDuplicate_bst(test, 2, 2);
+			assertTrue(bool_2 == bool_1 && bool_1 == bool_3);
 	 
 	}
     
