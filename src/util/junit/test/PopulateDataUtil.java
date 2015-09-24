@@ -3,6 +3,8 @@ package util.junit.test;
 public class PopulateDataUtil {
 	
 	public static final int[] test_array_ints = {1,2,3,4,5,3,2,1};
+	public static final int[] test_array_ints_2 = {-1,-1};
+	public static final int[] test_array_ints_3 = {2,9,11, 2, 4};
 	public static final int[] qs_arry = {3, 4, 5, 2, 1};
 	
 	public static int[] getAscendingNums(int size){

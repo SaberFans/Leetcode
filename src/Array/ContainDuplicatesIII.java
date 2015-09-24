@@ -2,12 +2,13 @@ package Array;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.junit.Test;
 
 import util.junit.test.PopulateDataUtil;
+import util.sorting.SortingAlgorithm;
 
 /**
  * Given an array of integers, find out whether there are two distinct indices i
@@ -19,6 +20,41 @@ import util.junit.test.PopulateDataUtil;
  * 
  */
 public class ContainDuplicatesIII {
+	/**
+	 * Bucketing partition algorithm, O(N) time, constant max space cost
+	 * @param nums
+	 * @param k
+	 * @param t
+	 * @return
+	 */
+	public boolean containsNearbyAlmostDuplicate_bucketing(int[] nums, int k, int t){
+		if (k == 0 || t < 0)
+			return false;
+		int bucket_size = k;
+		int bucket_divider = Math.abs(t)+1; 
+		Map<Long, Integer> map = new HashMap<>();
+		for(int i=0;i<nums.length;i++){
+			Long curr_bucket = ((long)nums[i]-Integer.MIN_VALUE)/bucket_divider;
+			if(map.containsKey(curr_bucket)){
+				return true;
+			}
+			else if( ( map.containsKey(curr_bucket+1)&& Math.abs((long)nums[i]-map.get(curr_bucket+1))<=t)){
+				return true;
+			}
+			else if( (map.containsKey(curr_bucket-1)&& Math.abs((long)nums[i]-map.get(curr_bucket-1))<=t)){
+				return true;
+			}
+			if(map.entrySet().size()==bucket_size){
+				long last_bucket_ind = ((long)nums[i-k]-Integer.MIN_VALUE)/bucket_divider;
+				map.remove(last_bucket_ind);
+			}
+			map.put(curr_bucket, nums[i]);
+			
+		}
+		
+		return false;
+	}
+	
 	/**
 	 * Quick sort solution. 
 	 * @param nums
@@ -33,14 +69,14 @@ public class ContainDuplicatesIII {
 		int[] index = new int[length];
 		for (int i = 0; i < length; i++)
 			index[i] = i;
-		quickSort(nums, 0, length - 1, index);
+		SortingAlgorithm.quickSort(nums, 0, length - 1, index);
 
 		int stat = 0;
 		for (int i = 1; i < length; i++) {
 			long difValue = Math.abs((long) nums[i] - (long) nums[stat]);
 			while ((i != stat) && (difValue > t)) {
 				stat++;
-				difValue = Math.abs((long) nums[i] - (long) nums[stat]);
+				difValue = Math.abs((long) nums[i] - (long) nums[stat]); // continuously move forward the stat index
 			}
 			/*Print out in OJ will cause Time Limit Excess !!!
 			 * System.out.println(i + " " + stat);
@@ -57,113 +93,79 @@ public class ContainDuplicatesIII {
 			}
 		}
 		return false;
-
 	}
+	@Test
+	public void boundary_test() throws Exception{
+		int[][] test = { PopulateDataUtil.test_array_ints,
+				PopulateDataUtil.test_array_ints_2 };
 
-	void quickSort(int[] a, int low, int high, int[] ind) {
-		int p = get(a, low, high, ind);
+		boolean bool_1 = new ContainDuplicatesIII()
+				.containsNearbyAlmostDuplicate(test[0], 0,2);
 
-		if (low <= (p - 1))
-			quickSort(a, low, p - 1, ind);
-		if (high >= (p + 1))
-			quickSort(a, p + 1, high, ind);
-	}
-
-	int get(int[] a, int low, int high, int[] ind) {
-		int pivot = high;  // move the first to the rightmost, as pivot
-
-        int swap_temp_var = a[low];
-        a[low] = a[pivot];
-        a[pivot] = swap_temp_var;
-
-        int swap_ind_var = ind[low];
-        ind[low] = ind[pivot];
-        ind[pivot] = swap_ind_var;
-
-        int pivot_value = a[pivot];
-        int pivot_pos = low;
-        while(low<high){
-            if(a[low]<=pivot_value){
-
-                swap_temp_var = a[pivot_pos];
-                a[pivot_pos] = a[low];
-                a[low] = swap_temp_var;
-
-                swap_ind_var = ind[pivot_pos];
-                ind[pivot_pos] = ind[low];
-                ind[low] = swap_ind_var;
-                pivot_pos++;
-            }
-            low++;
-        }
-        swap_temp_var = a[pivot_pos];
-        a[pivot_pos] = a[pivot];
-        a[pivot] = swap_temp_var;
-
-        swap_ind_var = ind[pivot_pos];
-        ind[pivot_pos] = ind[pivot];
-        ind[pivot] = swap_ind_var;
-
-        return pivot_pos;
-
-		/*while (low < high) {
-			while (low < high && a[high] >= compare)
-				high--;
-
-			int temp = a[low];
-			int temp1 = ind[low];
-			a[low] = a[high];
-			a[high] = temp;
-			ind[low] = ind[high];
-			ind[high] = temp1;
-
-			while (low < high && a[low] <= compare)
-				low++;
-
-			temp = a[low];
-			a[low] = a[high];
-			a[high] = temp;
-			temp1 = ind[low];
-			ind[low] = ind[high];
-			ind[high] = temp1;
-		}
-		return low;
-		*/
-
+		boolean bool_2 = new ContainDuplicatesIII()
+				.containsNearbyAlmostDuplicate_bucketing(test[0], 0,2);
+		System.out.println(bool_1 + " " + bool_2);
+		assertTrue(bool_2 == bool_1);
 	}
     @Test
     public void valid_test() throws Exception {
-        new ContainDuplicatesIII().containsNearbyAlmostDuplicate(
-                PopulateDataUtil.test_array_ints, 1, 1);
-    }
-    boolean isAscending(int[] nums){
-        for(int i=0;i<nums.length-1;i++){
-            if(nums[i]>nums[i+1])
-                return false;
-        }
-        return true;
-    }
+    	
+		int[][] test = { PopulateDataUtil.test_array_ints,
+						PopulateDataUtil.test_array_ints_2};
+ 
+			boolean bool_1 = new ContainDuplicatesIII()
+					.containsNearbyAlmostDuplicate(test[0], 1, -1);
+
+			boolean bool_2 = new ContainDuplicatesIII()
+					.containsNearbyAlmostDuplicate_bucketing(test[0], 1, -1);
+			System.out.println(bool_1+" "+bool_2);
+			assertTrue(bool_2 == bool_1);
+	 
+	}
+    
     @Test
-    public void qsort_stack_overflow_test() throws Exception{
-        int[] big_array = new int[1000000];
-        for(int test_occur = 0;test_occur<10;test_occur++) {
-            for (int i = 0; i < big_array.length; i++) {
-                Random randomGenerator = new Random();
-                big_array[i] = randomGenerator.nextInt(100) + randomGenerator.nextInt(100) * 100;
+    public void valid_test_2() throws Exception {
+    	
+		int[][] test = { PopulateDataUtil.test_array_ints,
+						PopulateDataUtil.test_array_ints_2};
+ 
+			boolean bool_1 = new ContainDuplicatesIII()
+					.containsNearbyAlmostDuplicate(test[1], 2, 2);
 
-            }
-            new ContainDuplicatesIII().quickSort(big_array, 0, big_array.length-1,
-                    PopulateDataUtil.getAscendingNums(big_array.length));
-            assertTrue(isAscending(big_array));
-        }
+			boolean bool_2 = new ContainDuplicatesIII()
+					.containsNearbyAlmostDuplicate_bucketing(test[1], 2, 2);
 
-    }
+			assertTrue(bool_2 == bool_1);
+	 
+	}
     @Test
-    public void sort_test() throws Exception {
-        System.out.println(Arrays.toString(PopulateDataUtil.qs_arry));
+    public void valid_test_3() throws Exception {
+ 
+			boolean bool_1 = new ContainDuplicatesIII()
+					.containsNearbyAlmostDuplicate(PopulateDataUtil.test_array_ints_3, 2, 2);
 
-        new ContainDuplicatesIII().quickSort(PopulateDataUtil.qs_arry, 0, PopulateDataUtil.qs_arry.length-1,
-                PopulateDataUtil.getAscendingNums(5));
-        System.out.println(Arrays.toString(PopulateDataUtil.qs_arry));
-    }
+			boolean bool_2 = new ContainDuplicatesIII()
+					.containsNearbyAlmostDuplicate_bucketing(PopulateDataUtil.test_array_ints_3, 2, 2);
+
+			assertTrue(bool_2 == bool_1);
+	 
+	}
+    /**
+     * Boundary test to verity if the difference will make the representation of integer to overflow.
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void valid_test_4() throws Exception {
+    		int [] test={-1,  2147483647};
+			boolean bool_1 = new ContainDuplicatesIII()
+					.containsNearbyAlmostDuplicate(test, 1,2147483647);
+
+			boolean bool_2 = new ContainDuplicatesIII()
+					.containsNearbyAlmostDuplicate_bucketing(test, 1,2147483647);
+
+			assertTrue(bool_2 == bool_1);
+	 
+	}
+    
 }
