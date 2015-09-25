@@ -1,7 +1,8 @@
 package util.junit.test;
 
 public class PopulateDataUtil {
-	
+	public static final int[] empty_array_ints= {};
+	public static final int[] one_array_int = {1};
 	public static final int[] test_array_ints = {1,2,3,4,5,3,2,1};
 	public static final int[] test_array_ints_2 = {-1,-1};
 	public static final int[] test_array_ints_3 = {2,9,11, 2, 4};

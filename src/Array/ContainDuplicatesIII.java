@@ -21,12 +21,16 @@ import util.sorting.SortingAlgorithm;
  * 
  */
 public class ContainDuplicatesIII {
-	public static void main(String[] args) {
 
-		
-		//new ContainDuplicatesIII().containsNearbyAlmostDuplicate_bst(null, 0,0);
-		
-	}
+	/**
+	 * BST solution.
+	 * Use the Binary Search Tree's find operation which takes O(LogN) time.
+	 * In all, time cost is O(N*LogN).
+	 * @param nums
+	 * @param k
+	 * @param t
+	 * @return
+	 */
 	public boolean containsNearbyAlmostDuplicate_bst(int[] nums, int k, int t){
 		if(nums==null || k==0){
 			return false;
@@ -48,8 +52,6 @@ public class ContainDuplicatesIII {
 			}
 			set.add((long)nums[i]);
 		}
-		
-		 
 		return false;
 	}
 	/**
