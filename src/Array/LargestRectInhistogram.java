@@ -1,5 +1,7 @@
 package Array;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -40,7 +42,9 @@ public class LargestRectInhistogram {
 		stack[0] = 0;
 		width[0] = 0;
 		int newHeight;
+		int times =0;
 		for (int i = 0; i <= height.length; i++) {
+			times++;
 			if (i < height.length)
 				newHeight = height[i];
 			else
@@ -62,11 +66,13 @@ public class LargestRectInhistogram {
 				width[top] = wid + 1;
 			}
 		}
+		System.out.println(times);
 		return area; 
 	}
 	
 	/*
 	 * Solution using Stack explicitly
+	 * 
 	 */
 	public int largestRect_withStack(int[]height){
 		int max_rect_area = 0;
@@ -75,8 +81,10 @@ public class LargestRectInhistogram {
 		int height_appened_zero[] = Arrays.copyOf(height, height.length+1);
 		height = height_appened_zero;
 		
+		int times =0;
 		for(int i=0;i<height.length;i++){
-			if(stack.empty() || height[i]>height[stack.peek()] ){
+			times++;
+			if(stack.empty() || height[i]>=height[stack.peek()] ){
 				stack.push(i);
 			}
 			else{
@@ -85,16 +93,36 @@ public class LargestRectInhistogram {
 				i--;
 			}
 		}
-		
+		System.out.println(times);
 		return max_rect_area;
 		
 		
 	}
 	
+	
 	@Test
-	public void test_LargestRect(){
+	public void big_dataset_LargestRect1(){
 		int[] height = {1};
-		new LargestRectInhistogram().largestRect(height);
+		height = new int[Integer.MAX_VALUE/200];
+		for(int i=0;i<Integer.MAX_VALUE/200;i++)
+		{
+			height[i] = 1;
+		}
+		assertEquals(Integer.MAX_VALUE/200, new LargestRectInhistogram().largestRect_withStack(height));
+		
+		
+		
+	}
+	@Test
+	public void big_dataset_LargestRect2(){
+		int[] height = {1};
+		height = new int[Integer.MAX_VALUE/200];
+		for(int i=0;i<Integer.MAX_VALUE/200;i++)
+		{
+			height[i] = 1;
+		}
+		
+		assertEquals(Integer.MAX_VALUE/200, new LargestRectInhistogram().largestRect(height));
 		
 		
 	}
