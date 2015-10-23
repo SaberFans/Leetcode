@@ -23,7 +23,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class InsertInterval {
 
 	// Definition for an interval.
-	private class Interval {
+	static class Interval {
 		int start;
 		int end;
 

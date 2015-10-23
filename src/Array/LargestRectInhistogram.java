@@ -2,33 +2,16 @@ package Array;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Deque;
 import java.util.Stack;
 
 import org.junit.Test;
 
 public class LargestRectInhistogram {
-	/**
-	 * Stack Solution, keeps the width and height stack.
-	 * O(N) time Solution.
-	 * @param height
-	 * @return
-	 */
-//	public int largestRectangleArea(int[] height) {
-//		int maxim_area = 0;
-//		int width[] = new int[height.length+1];
-//		int stack[] = new int[height.length+1];
-//		
-//		for(int i=0;i<=height.length;i++){
-//			int newHeight;
-//			if(i==height.length)
-//				newHeight = -1;
-//			else
-//			
-//			
-//		}
-//		return maxim_area;
-//	}
+
 	/**
 	 * Not pass the Time Limit, though...
 	 * @param height
@@ -42,9 +25,7 @@ public class LargestRectInhistogram {
 		stack[0] = 0;
 		width[0] = 0;
 		int newHeight;
-		int times =0;
 		for (int i = 0; i <= height.length; i++) {
-			times++;
 			if (i < height.length)
 				newHeight = height[i];
 			else
@@ -66,39 +47,36 @@ public class LargestRectInhistogram {
 				width[top] = wid + 1;
 			}
 		}
-		System.out.println(times);
 		return area; 
 	}
 	
-	/*
-	 * Solution using Stack explicitly
-	 * 
+	/**
+	 * Stack Solution, keeps the width and height stack.
+	 * O(N) time Solution.
+	 * @param height
+	 * @return
 	 */
 	public int largestRect_withStack(int[]height){
 		int max_rect_area = 0;
-		Stack<Integer> stack = new Stack<>();
+		Deque<Integer> stack = new ArrayDeque<>();
 		
 		int height_appened_zero[] = Arrays.copyOf(height, height.length+1);
 		height = height_appened_zero;
 		
-		int times =0;
 		for(int i=0;i<height.length;i++){
-			times++;
-			if(stack.empty() || height[i]>=height[stack.peek()] ){
+			if(stack.isEmpty() || height[i]>height[stack.peek()] ){
 				stack.push(i);
 			}
 			else{
 				int poped_top = stack.pop();
-				max_rect_area = Math.max(max_rect_area, height[poped_top]* (stack.empty()?i: i-stack.peek()-1));
+				max_rect_area = Math.max(max_rect_area, height[poped_top]* (stack.isEmpty()?i: i-stack.peek()-1));
 				i--;
 			}
 		}
-		System.out.println(times);
 		return max_rect_area;
 		
 		
 	}
-	
 	
 	@Test
 	public void big_dataset_LargestRect1(){
@@ -109,8 +87,6 @@ public class LargestRectInhistogram {
 			height[i] = 1;
 		}
 		assertEquals(Integer.MAX_VALUE/200, new LargestRectInhistogram().largestRect_withStack(height));
-		
-		
 		
 	}
 	@Test
@@ -125,5 +101,35 @@ public class LargestRectInhistogram {
 		assertEquals(Integer.MAX_VALUE/200, new LargestRectInhistogram().largestRect(height));
 		
 		
+	}
+	@Test
+	public void java_stack_time_test(){
+		Stack<Integer> stack = new Stack<>();
+		for(int i=0;i<Integer.MAX_VALUE/200;i++)
+		{
+			stack.push(i);
+			stack.pop();
+			
+		}
+	}
+	@Test
+	public void deque_stack_time_test(){
+		ArrayDeque<Integer> stack = new ArrayDeque<>();
+		for(int i=0;i<Integer.MAX_VALUE/200;i++)
+		{
+			stack.push(i);
+			stack.pop();
+			
+		}
+	}
+	@Test
+	public void java_arraylist_stack_time_test(){
+		ArrayList<Integer> stack = new ArrayList<>();
+		for(int i=0;i<Integer.MAX_VALUE/200;i++)
+		{
+			stack.add(i);
+			stack.remove(stack.size()-1);
+			
+		}
 	}
 }
