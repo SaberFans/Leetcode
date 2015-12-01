@@ -16,6 +16,12 @@ public class MajorityElement {
 	private HashMap<Integer, Integer>	occur;
 
  
+	/**
+	 * Naive solution using HashMap.
+	 * For O(1) space O(n) solution, @see {@link Array.MajorityElementII}
+	 * @param num
+	 * @return
+	 */
 	public int majorityElement(int[] num) {
 		int size = num.length;
 

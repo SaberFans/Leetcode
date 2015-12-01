@@ -1,8 +1,9 @@
 package Array;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -53,7 +54,6 @@ public class MergeIntervals {
 	private Map<Integer, Integer> sortAndMerged(List<Interval> intervals ){
 		Map<Integer, Integer> sortedIntervals = new TreeMap<>();
 		for(Interval interval: intervals){
-			
 			sortedIntervals.put(interval.start, sortedIntervals.containsKey(interval.start)?Math.max(interval.end, sortedIntervals.get(interval.start)): interval.end);
 		}
 		return sortedIntervals;
@@ -61,6 +61,8 @@ public class MergeIntervals {
 	@Test
 	public void test_validity() throws Exception {
 		List<Interval> intervals = Arrays.asList(new Interval(1, 3), new Interval(2, 7), new Interval(3, 5));
-		System.out.println(new MergeIntervals().mergeInterval(intervals));
+		List<Interval> expected = Arrays.asList(new Interval(1,7));
+		assertEquals(intervals, expected);
+		
 	}
 }

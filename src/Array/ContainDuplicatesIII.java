@@ -9,7 +9,7 @@ import java.util.TreeSet;
 import org.junit.Test;
 
 import util.junit.test.PopulateDataUtil;
-import util.sorting.SortingAlgorithm;
+import util.sorting.QuickSortUtil;
 
 /**
  * Given an array of integers, find out whether there are two distinct indices i
@@ -103,7 +103,7 @@ public class ContainDuplicatesIII {
 		int[] index = new int[length];
 		for (int i = 0; i < length; i++)
 			index[i] = i;
-		SortingAlgorithm.quickSort(nums, 0, length - 1, index);
+		QuickSortUtil.quickSort(nums, 0, length - 1, index);
 
 		int stat = 0;
 		for (int i = 1; i < length; i++) {
