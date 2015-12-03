@@ -18,7 +18,7 @@ public class MajorityElement {
  
 	/**
 	 * Naive solution using HashMap.
-	 * For O(1) space O(n) solution, @see {@link Array.MajorityElementII}
+	 * For O(1) space O(n) solution, @see Array.MajorityElementII
 	 * @param num
 	 * @return
 	 */

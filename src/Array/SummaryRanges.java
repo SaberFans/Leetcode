@@ -28,7 +28,8 @@ public class SummaryRanges {
 	@Test
 	public void valid_test3(){
 		List<String> res = new SummaryRanges().summaryRanges(PopulateDataUtil.getAscendingNums(5));
-		List<String> match = Arrays.asList("1->5");
+		List<String> match = Arrays.asList("0->4");
+		System.out.println(res);
 		assertTrue(match.equals(res));
 	}
 	@Test

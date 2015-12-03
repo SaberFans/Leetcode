@@ -62,7 +62,8 @@ public class MergeIntervals {
 	public void test_validity() throws Exception {
 		List<Interval> intervals = Arrays.asList(new Interval(1, 3), new Interval(2, 7), new Interval(3, 5));
 		List<Interval> expected = Arrays.asList(new Interval(1,7));
-		assertEquals(intervals, expected);
+		System.out.println(intervals+ ": "+expected);
+		assertEquals(mergeInterval(intervals), expected);
 		
 	}
 }
