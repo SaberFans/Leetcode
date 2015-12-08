@@ -1,5 +1,7 @@
 package util.junit.test;
 
+import java.util.Random;
+
 public class PopulateDataUtil {
 	public static final int[] empty_array_ints= {};
 	public static final int[] one_array_int = {1};
@@ -23,6 +25,13 @@ public class PopulateDataUtil {
 		int []nums = new int[size];
 		for(int i=0;i<size;i++)
 			nums[i] = value;
+		return nums;
+	}
+	public static int[] getRandomData(int size, int range){
+		int[] nums = new int[size];
+		Random r = new Random();
+		for(int i=0;i<size;i++)
+			nums[i] = r.nextInt(range)+1;
 		return nums;
 	}
 	
