@@ -16,10 +16,15 @@ public class InsertionSortTest {
 		int compareTo[] = Arrays.copyOf(input, input.length);
 		
 		int input_cp1[] = Arrays.copyOf(input, input.length);
+		int input_cp2[] = Arrays.copyOf(input, input.length);
 		
 		Arrays.sort(compareTo);
+		
 		new InsertionSort().sort(input_cp1);
 		assertTrue(Arrays.equals(compareTo, input_cp1));
+		
+		new InsertionSort().sort2(input_cp2);
+		assertTrue(Arrays.equals(compareTo, input_cp2));
 	}
 	
 	@Test
@@ -29,8 +34,14 @@ public class InsertionSortTest {
 		
 		int input_cp1[] = Arrays.copyOf(input, input.length);
 		
+		int input_cp2[] = Arrays.copyOf(input, input.length);
+		
 		Arrays.sort(compareTo);
+		
 		new InsertionSort().sort(input_cp1);
 		assertTrue(Arrays.equals(compareTo, input_cp1));
+		
+		new InsertionSort().sort2(input_cp2);
+		assertTrue(Arrays.equals(compareTo, input_cp2));
 	}
 }
