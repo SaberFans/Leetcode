@@ -1,5 +1,13 @@
 package util.sorting;
 
+import static org.junit.Assert.*;
+
+import java.util.Arrays;
+
+import org.junit.Test;
+
+import util.junit.test.PopulateDataUtil;
+
 
 public class InsertionSort {
 	/**
@@ -35,6 +43,62 @@ public class InsertionSort {
 			}
 			input[j] = cmp;
 		}
+	}
+	
+	@Test
+	public void testName() throws Exception {
+		int []src = PopulateDataUtil.getRandomData(5, 10);
+		int []head = {1,2,3};
+		int target[] = new int[src.length+head.length];
+		System.arraycopy(head, 0, target, 0, head.length);
+		System.arraycopy(src, 0, target, head.length, src.length);
+		pairInsertion(target);
+		System.out.println(Arrays.toString(target));
+	}
+	
+	public void pairInsertion(int[]input){
+		int left = 0, right = input.length-1;
+		int a[]	 = input;
+		
+		 /*
+         * Skip the longest ascending sequence.
+         */
+        do {
+            if (left >= right) {
+                return;
+            }
+        } while (a[++left] >= a[left - 1]);
+
+        /*
+         * Every element from adjoining part plays the role
+         * of sentinel, therefore this allows us to avoid the
+         * left range check on each iteration. Moreover, we use
+         * the more optimized algorithm, so called pair insertion
+         * sort, which is faster (in the context of Quicksort)
+         * than traditional implementation of insertion sort.
+         */
+        for (int k = left; ++left <= right; k = ++left) {
+            int a1 = a[k], a2 = a[left];
+
+            if (a1 < a2) {
+                a2 = a1; a1 = a[left];
+            }
+            while (a1 < a[--k]) {
+                a[k + 2] = a[k];
+            }
+            a[++k + 1] = a1;
+
+            while (a2 < a[--k]) {
+                a[k + 1] = a[k];
+            }
+            a[k + 1] = a2;
+        }
+        int last = a[right];
+
+        while (last < a[--right]) {
+            a[right + 1] = a[right];
+        }
+        a[right + 1] = last;
 	}
 	
 }
