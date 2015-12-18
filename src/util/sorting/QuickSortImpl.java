@@ -12,6 +12,12 @@ import util.junit.test.PopulateDataUtil;
 /**
  * One Pivot QuickSort, unstable sorting algorithm.
  * For stable sorting, check the Merge Sort.
+ * 
+ * Note: QS not suitable for almost sorted sequence, as it will take a lot meaningless comparison/exchange 
+ * in partation when the chosen pivot is almost the least element.
+ * And for the situation which has constant number of variants, use the 3 way partition mechanism, as it will
+ * reduce a lot of data exchange.
+ * 
  * @author epttwxz
  *
  */
@@ -19,7 +25,7 @@ public class QuickSortImpl {
 	public static final int TWO_WAY = 1;
 	public static final int THREE_WAY = 2;
 	
-	private static QuickSortImpl instance = new QuickSortImpl();
+	public final static QuickSortImpl instance = new QuickSortImpl();
 	
 	/**
 	 * Quick sort wrapper to accept merely the array itself.
@@ -62,7 +68,14 @@ public class QuickSortImpl {
 			sort(input, pivot + 1, right);
 		}
 	}
-	
+	@Test
+	public void sortOrg(){
+		int arr[] = new int[]{1,1,4,3,2,1};
+		QuickSortImpl.instance.sort_original(arr, 0, 5);
+		System.out.println(Arrays.toString(arr));
+		
+		
+	}
 	/**
 	 * Original Quick Sort which uses two passes.
 	 * And skip the situation for many duplicates situation.
@@ -91,8 +104,8 @@ public class QuickSortImpl {
 		int i = lo, j = hi+1;
 		while(true){
 			// to notice, it's best not to stop for the equal to situation,
-			// which could be quadratic computation for a input with constant number of distinct values 
-			while(input[++i]<input[pivot])	if(i==hi) break;;
+			// which could be quadratic computation for a input with constant small number of distinct values! 
+			while(input[++i]<input[pivot])	if(i==hi) break;
 			while(input[--j]>input[pivot]);	//if(j==lo) break;
 			
 			if(i>=j) break;
@@ -119,12 +132,8 @@ public class QuickSortImpl {
 
 		int pivotPos = left;
 		while (left < right) {
-			if (input[left] <= pivotVal) {
-				int tmp = input[left];
-				input[left] = input[pivotPos];
-				input[pivotPos] = tmp;
-
-				pivotPos++;
+			if (input[left] < pivotVal) {   // skip the equal to case.
+				swap(input, left, pivotPos++);
 			}
 
 			left++;
@@ -168,7 +177,7 @@ public class QuickSortImpl {
 	
 	@Test
 	public void testQS() throws Exception {
-		int input[] = { 1, 3, 4, 3, 2, 1, 2, 4, 3, 1 };
+		int input[] = { 1, 1, 3, 4, 3, 2, 1, 2, 4, 3, 1 };
 		int compareTo[] = Arrays.copyOf(input, input.length);
 		
 		int input_cp1[] = Arrays.copyOf(input, input.length);
