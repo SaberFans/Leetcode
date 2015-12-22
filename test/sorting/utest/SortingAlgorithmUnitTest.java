@@ -19,6 +19,7 @@ public class SortingAlgorithmUnitTest {
 		int input_cp2[] = Arrays.copyOf(input, input.length);
 		int input_cp3[] = Arrays.copyOf(input, input.length);
 		int input_cp4[] = Arrays.copyOf(input, input.length);
+		int input_cp5[] = Arrays.copyOf(input, input.length);
 
 		Arrays.sort(compareTo);
 
@@ -37,6 +38,10 @@ public class SortingAlgorithmUnitTest {
 		// practice select sort
 		SortingAlgorithm.selectSort(input_cp4);
 		assertTrue(Arrays.equals(compareTo, input_cp4));
+		
+		// practice merge sort
+		SortingAlgorithm.mergesort(input_cp5);
+		assertTrue(Arrays.equals(compareTo, input_cp5));
 	}
 
 	@Test
@@ -48,6 +53,7 @@ public class SortingAlgorithmUnitTest {
 		int input_cp2[] = Arrays.copyOf(input, input.length);
 		int input_cp3[] = Arrays.copyOf(input, input.length);
 		int input_cp4[] = Arrays.copyOf(input, input.length);
+		int input_cp5[] = Arrays.copyOf(input, input.length);
 
 		// library sort
 		Arrays.sort(compareTo);
@@ -67,5 +73,9 @@ public class SortingAlgorithmUnitTest {
 		// practice select sort
 		SortingAlgorithm.selectSort(input_cp4);
 		assertTrue(Arrays.equals(compareTo, input_cp4));
+		
+		// practice merge sort
+		SortingAlgorithm.mergesort(input_cp5);
+		assertTrue(Arrays.equals(compareTo, input_cp5));
 	}
 }

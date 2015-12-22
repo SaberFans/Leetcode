@@ -22,5 +22,9 @@ public class SortingAlgorithm {
 	public static void quicksort(int[] input) {
 		QuickSortImpl.instance.sort(input, 0, input.length - 1);
 	}
+	
+	public static void mergesort(int[]input){
+		MergeSort.instance.sort(input);
+	}
 
 }
