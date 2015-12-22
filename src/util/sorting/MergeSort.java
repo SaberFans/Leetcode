@@ -6,10 +6,13 @@ import org.junit.Test;
 
 public class MergeSort {
 	public final static MergeSort instance = new MergeSort();
-	
+	private static int []auxilary;
 	void sort(int A[]){
 		if(A==null) return;
 		int length = A.length;
+		auxilary = new int[length];
+		System.arraycopy(A, 0, auxilary, 0, length);
+
 		sort(A, 0, length);
 		
 	}
@@ -23,6 +26,7 @@ public class MergeSort {
 		if(high-low<=1)
 			return;
 		int mid = (low+high)/2;
+		
 		sort(A, low, mid);
 		sort(A, mid, high);
 		merge(A, low, mid, high);
@@ -38,28 +42,28 @@ public class MergeSort {
 	 * @param high right boundary for the current merge
 	 */
 	void merge(int A[], int low, int mid, int high){
-		int auxilary[] = new int[high-low];
-		for(int i=low, j=0; i<high ;i++,j++){
-			auxilary[j] = A[i];
+		
+		for(int i=low; i<high ;i++){
+			auxilary[i] = A[i];
 		}
 		int r = low, t = mid;
 		
 		for(int i=low;i<high;){
 			if(r==mid){
 				while(t<high){
-					A[i++] = auxilary[t++ -low];
+					A[i++] = auxilary[t++];
 				}
 			}
 			else if(t==high){
 				while(r<mid){
-					A[i++] = auxilary[r++ -low];
+					A[i++] = auxilary[r++];
 				}
 			}
-			else if(auxilary[r-low]> auxilary[t-low]){
-				A[i++] = auxilary[t++ -low];
+			else if(auxilary[r]> auxilary[t]){
+				A[i++] = auxilary[t++];
 			}
 			else{
-				A[i++] = auxilary[r++ -low];
+				A[i++] = auxilary[r++];
 			}
 		}
 	}
