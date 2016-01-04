@@ -56,6 +56,12 @@ public class InsertionSort {
 		System.out.println(Arrays.toString(target));
 	}
 	
+	@Test
+	public void testPairInsert(){
+		int arr[] = {1, 4,3,2, 7, 9,8};
+		new InsertionSort().pairInsertion(arr);
+	}
+	
 	public void pairInsertion(int[]input){
 		int left = 0, right = input.length-1;
 		int a[]	 = input;
