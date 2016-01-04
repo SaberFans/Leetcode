@@ -1,7 +1,5 @@
 package util.sorting;
 
-import static org.junit.Assert.*;
-
 import java.util.Arrays;
 
 import org.junit.Test;
@@ -9,10 +7,12 @@ import org.junit.Test;
 import util.junit.test.PopulateDataUtil;
 
 
-public class InsertionSort {
+class InsertionSort {
+	public final static InsertionSort InsertionSortinstance  = new InsertionSort(); 
 	/**
 	 * Original Insertion Sort.
-	 * Comparison times up to 
+	 * Comparison times up to O(N*2) worst case comparison and exchange, and best case for 
+	 * fully sorted sequence is O(N) comparison.
 	 * @param input
 	 */
 	public void sort(int[] input) {
@@ -22,13 +22,13 @@ public class InsertionSort {
 		for (int i = 1; i < input.length; i++) {
 			for (int j = i; j > 0 && input[j]<input[j-1]; j--) {    /*** expensive exchange ***/
 				// swap until it gets its final position.
-				SortingUtil.swap(input, j-1, j);
+				SortingUtil.swap(input, j-1, j);                  /*** expensive exchange ***/
 			}
 		}
 	}
 
 	/**
-	 * Fast solution, which saves one assignment in the inner loop.
+	 * Fast solution, which reduces to one data exchange in the inner loop.
 	 * @param input
 	 */
 	public void sort2(int[] input) {
@@ -55,14 +55,21 @@ public class InsertionSort {
 		pairInsertion(target);
 		System.out.println(Arrays.toString(target));
 	}
+	@Test
+	public void testOrdinary(){
+		int []arr = {7,8,9,2,1,0};
+		pairInsertion(arr);
+		System.out.println(Arrays.toString(arr));
+	}
 	
 	@Test
 	public void testPairInsert(){
 		int arr[] = {1, 4,3,2, 7, 9,8};
 		new InsertionSort().pairInsertion(arr);
 	}
-	
-	public void pairInsertion(int[]input){
+
+	public void pairInsertion(int[]input){   // study the logic of this, and why should use this?
+
 		int left = 0, right = input.length-1;
 		int a[]	 = input;
 		
