@@ -1,4 +1,4 @@
-package String;
+package data.structure.Stack;
 
 import static org.junit.Assert.assertEquals;
 
@@ -21,18 +21,25 @@ public class ValidParentheses {
 	public void test2() {
 		String s = "(())";
 		assertEquals(true, isValid(s));
+		assertEquals(true, _isValid(s));
 	}
 
 	@Test
 	public void test3() {
 		String s = "()())";
 		assertEquals(false, isValid(s));
+		assertEquals(false, _isValid(s));
 	}
 
 	@Test
 	public void test4() {
  		String s = "([]{}){[]}{}";
+ 		System.out.println('{'-'}');
+ 		System.out.println('['-']');
+ 		System.out.println('('-')');
  		assertEquals(true, isValid(s));
+ 		assertEquals(true, _isValid(s));
+ 		
 	}
 	
 	
@@ -70,4 +77,27 @@ public class ValidParentheses {
 			return true;
 
 	}
+	public final String LEFT_CHARACTERS = "[{(", RIGHT_CHARACTERS = "]})";
+	// []()
+	public boolean _isValid(String s){
+		
+		Stack<Character> charStack = new Stack<>();
+		for(int i=0;i<s.length();i++){
+			char currentChar = s.charAt(i);
+			if(LEFT_CHARACTERS.indexOf(currentChar)>-1) {
+				charStack.push(currentChar);
+			}
+			else if(RIGHT_CHARACTERS.indexOf(currentChar)>-1){
+				if(charStack.isEmpty())
+					return false;
+				char top = charStack.pop();
+				if(top!=LEFT_CHARACTERS.charAt(RIGHT_CHARACTERS.indexOf(currentChar))){
+					return false;
+				}
+			}
+		}
+		return charStack.isEmpty();
+	}
+	
+	
 }

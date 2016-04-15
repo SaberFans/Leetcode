@@ -1,10 +1,11 @@
 package util.sorting;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import static util.sorting.SortingUtil.swap;
 
 import java.util.Arrays;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import util.junit.test.PopulateDataUtil;
@@ -22,10 +23,12 @@ import util.junit.test.PopulateDataUtil;
  *
  */
 public class QuickSortImpl {
+
 	public static final int TWO_WAY = 1;
 	public static final int THREE_WAY = 2;
 	
 	public final static QuickSortImpl instance = new QuickSortImpl();
+	private static final int CUTOFF_VALUE = 15;
 	
 	/**
 	 * Quick sort wrapper to accept merely the array itself.
@@ -41,7 +44,26 @@ public class QuickSortImpl {
 		if(partition==THREE_WAY)
 			sortThreeWay(input, 0, input.length - 1);
 	}
-
+	
+	void insertionSortOP(int input[], int start, int end){
+		for(int r=start+1;r<=end;r++){
+			int s = r;
+			int copyVal = input[s];
+			while(s>start &&input[s]<input[s-1]){
+				input[s] = input[s-1];
+				s--;
+			}
+			input[s]= copyVal;
+			
+		}
+	}
+	void insertionSort(int input[],int start, int end){
+		for(int r=start+1;r<=end;r++){
+			for(int s=r;s>start&&input[s]<input[s-1];s--){
+				swap(input, s, s-1);
+			}
+		}
+	}
 	/**
 	 * Quick sort main recursion stub.
 	 * 
@@ -50,7 +72,13 @@ public class QuickSortImpl {
 	 * @param right
 	 */
 	void sort(int[] input, int left, int right) {
+		if(right-left<CUTOFF_VALUE){
+			insertionSortOP(input, left, right);
+		}
+		
 		int pivot = getPartitionPos(input, left, right);
+		
+		// exit if sub-array's size >1 
 		if (pivot > left) {
 			sort(input, left, pivot - 1);
 		}
@@ -72,9 +100,14 @@ public class QuickSortImpl {
 	public void sortOrg(){
 		int arr[] = new int[]{1,1,4,3,2,1};
 		QuickSortImpl.instance.sort_original(arr, 0, 5);
-		System.out.println(Arrays.toString(arr));
+		Assert.assertTrue(SortingUtil.isAscending(arr));
 		
-		
+	}
+	@Test
+	public void sortOptimized() throws Exception {
+		int arr[] = new int[]{1,1,4,3,2,1};
+		QuickSortImpl.instance.sort(arr, 0, 5);
+		Assert.assertTrue(SortingUtil.isAscending(arr));
 	}
 	/**
 	 * Original Quick Sort which uses two passes.
@@ -172,8 +205,6 @@ public class QuickSortImpl {
 		
 		return pivotPos;
 	}
-	
-
 	
 	@Test
 	public void testQS() throws Exception {
