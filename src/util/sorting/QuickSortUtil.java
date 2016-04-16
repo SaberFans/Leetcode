@@ -96,35 +96,7 @@ public class QuickSortUtil {
 		*/
 
 	}
-	@Test
-    public void qsort_stack_overflow_test() throws Exception{
-        int[] big_array = new int[1000000];
-        for(int test_occur = 0;test_occur<10;test_occur++) {
-            for (int i = 0; i < big_array.length; i++) {
-                Random randomGenerator = new Random();
-                big_array[i] = randomGenerator.nextInt(100) + randomGenerator.nextInt(100) * 100;
-
-            }
-            QuickSortUtil.quickSort(big_array, 0, big_array.length-1,
-                    PopulateDataUtil.getAscendingNums(big_array.length));
-            assertTrue(isAscending(big_array));
-        }
-
-    }
-    @Test
-    public void sort_test() throws Exception {
-        System.out.println(Arrays.toString(PopulateDataUtil.qs_arry));
-
-        QuickSortUtil.quickSort(PopulateDataUtil.qs_arry, 0, PopulateDataUtil.qs_arry.length-1,
-                PopulateDataUtil.getAscendingNums(5));
-        System.out.println(Arrays.toString(PopulateDataUtil.qs_arry));
-    }
-    boolean isAscending(int[] nums){
-        for(int i=0;i<nums.length-1;i++){
-            if(nums[i]>nums[i+1])
-                return false;
-        }
-        return true;
-    }
+	
+   
     
 }

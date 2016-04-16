@@ -85,16 +85,17 @@ public class MergeSort {
 		
 		sortX(dist, src, start, mid);
 		sortX(dist, src, mid, end);
-		
 		mergeX(src, dist, start, mid, end);
 		
 	}
 	void mergeX(int[]src, int[]dis, int start, int mid, int end){
 		int low1 = start, low2 = mid;
+
 		
 		for(int i= start;i<end;i++){
 
 			if(low2==end){
+
 				dis[i] = src[low1++];
 			}
 			else if(low1==mid){
