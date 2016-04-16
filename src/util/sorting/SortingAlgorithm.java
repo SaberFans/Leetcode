@@ -24,7 +24,9 @@ public class SortingAlgorithm {
 	}
 	
 	public static void mergesort(int[]input){
-		MergeSort.instance.sort(input);
+		MergeSort.instance.sortX_entry(input);
 	}
+	
+	
 
 }

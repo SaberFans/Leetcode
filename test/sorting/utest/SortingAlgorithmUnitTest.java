@@ -42,6 +42,8 @@ public class SortingAlgorithmUnitTest {
 		// practice merge sort
 		SortingAlgorithm.mergesort(input_cp5);
 		assertTrue(Arrays.equals(compareTo, input_cp5));
+		
+		
 	}
 
 	@Test

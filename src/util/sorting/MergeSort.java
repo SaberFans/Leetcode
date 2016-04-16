@@ -50,22 +50,22 @@ public class MergeSort {
 		
 		int r = low, t = mid;
 		
-		for(int i=low;i<high;){
+		for(int i=low;i<high;i++){
 			if(r==mid){
-				while(t<high){
-					A[i++] = auxilary[t++];
-				}
+				//while(t<high){
+					A[i] = auxilary[t++];
+				//}
 			}
 			else if(t==high){
-				while(r<mid){
-					A[i++] = auxilary[r++];
-				}
+//				while(r<mid){
+					A[i] = auxilary[r++];
+//				}
 			}
 			else if(auxilary[r]> auxilary[t]){
-				A[i++] = auxilary[t++];
+				A[i] = auxilary[t++];
 			}
 			else{
-				A[i++] = auxilary[r++];
+				A[i] = auxilary[r++];
 			}
 		}
 	}
@@ -81,21 +81,24 @@ public class MergeSort {
 	void sortX(int[] src, int[] dist, int start, int end){
 		if(start+1>=end) return;
 		
-		int mid = (start+end)/2;
+		int mid = start+ (end-start)/2;
 		
 		sortX(dist, src, start, mid);
-		sortX(dist, src, mid+1, end);
+		sortX(dist, src, mid, end);
+		
 		mergeX(src, dist, start, mid, end);
 		
 	}
 	void mergeX(int[]src, int[]dis, int start, int mid, int end){
-		int low1 = start, low2 = mid+1;
+		int low1 = start, low2 = mid;
+		
 		for(int i= start;i<end;i++){
-			if(low1>mid){
-				dis[i] = src[low2++];
-			}
-			else if(low2>=end){
+
+			if(low2==end){
 				dis[i] = src[low1++];
+			}
+			else if(low1==mid){
+				dis[i] = src[low2++];
 			}
 			else if(src[low1]>src[low2]){
 				dis[i] = src[low2++];
@@ -108,7 +111,7 @@ public class MergeSort {
 	
 	@Test
 	public void test(){
-		int[]A = {3,2,3,3,1};
+		int[]A = {6,1,4,6};
 		new MergeSort().sortX_entry(A);
 		System.out.println(Arrays.toString(A));
 	}
