@@ -2,13 +2,13 @@ package sorting.utest;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
+import java.util.List;
 
 import org.junit.Test;
 
 import util.junit.test.PopulateDataUtil;
-import util.sorting.QuickSortUtil;
 import util.sorting.SortingAlgorithm;
 import util.sorting.SortingUtil;
 
@@ -16,16 +16,21 @@ public class SortingAlgorithmUnitTest {
 	@Test
 	public void ordinaryTest() throws Exception {
 		int input[] = { 1, 3, 4, 3, 2, 1, 2, 4, 3, 1 };
+		
+		Integer[] inputObj_arr = { 1, 3, 4, 3, 2, 1, 2, 4, 3, 1 };
+		
 		int compareTo[] = Arrays.copyOf(input, input.length);
 
 		int input_cp1[] = Arrays.copyOf(input, input.length);
 		int input_cp2[] = Arrays.copyOf(input, input.length);
 		int input_cp3[] = Arrays.copyOf(input, input.length);
-		int input_cp4[] = Arrays.copyOf(input, input.length);
+		
+		Integer input_cp4[] = Arrays.copyOf(inputObj_arr, input.length, Integer[].class);
 		int input_cp5[] = Arrays.copyOf(input, input.length);
 
 		Arrays.sort(compareTo);
-
+		Arrays.sort(inputObj_arr);
+		
 		// practice bubble sort
 		SortingAlgorithm.bubblesort(input_cp1);
 		assertTrue(Arrays.equals(compareTo, input_cp1));
@@ -38,9 +43,9 @@ public class SortingAlgorithmUnitTest {
 		SortingAlgorithm.quicksort((input_cp3));
 		assertTrue(Arrays.equals(compareTo, input_cp3));
 
-		// practice select sort
+		// practice selection sort
 		SortingAlgorithm.selectSort(input_cp4);
-		assertTrue(Arrays.equals(compareTo, input_cp4));
+		assertTrue(Arrays.equals(inputObj_arr, input_cp4));
 		
 		// practice merge sort
 		SortingAlgorithm.mergesort(input_cp5);
@@ -48,21 +53,24 @@ public class SortingAlgorithmUnitTest {
 		
 		
 	}
-
+	
 	@Test
 	public void randomInput() throws Exception {
 		int[] input = PopulateDataUtil.getRandomData(1000, 100);
+		Integer []inputObj_arr = PopulateDataUtil.getRandomDataObjs(1000, 100);
+		
 		int compareTo[] = Arrays.copyOf(input, input.length);
 
 		int input_cp1[] = Arrays.copyOf(input, input.length);
 		int input_cp2[] = Arrays.copyOf(input, input.length);
 		int input_cp3[] = Arrays.copyOf(input, input.length);
-		int input_cp4[] = Arrays.copyOf(input, input.length);
+		Integer input_cp4[] = Arrays.copyOf(inputObj_arr, input.length, Integer[].class);
 		int input_cp5[] = Arrays.copyOf(input, input.length);
 
 		// library sort
 		Arrays.sort(compareTo);
-
+		Arrays.sort(inputObj_arr);
+		
 		// practice bubble sort
 		SortingAlgorithm.bubblesort(input_cp1);
 		assertTrue(Arrays.equals(compareTo, input_cp1));
@@ -77,7 +85,7 @@ public class SortingAlgorithmUnitTest {
 
 		// practice select sort
 		SortingAlgorithm.selectSort(input_cp4);
-		assertTrue(Arrays.equals(compareTo, input_cp4));
+		assertTrue(Arrays.equals(inputObj_arr, input_cp4));
 		
 		// practice merge sort
 		SortingAlgorithm.mergesort(input_cp5);
@@ -95,8 +103,8 @@ public class SortingAlgorithmUnitTest {
         for(int test_occur = 0;test_occur<10;test_occur++) {
 //			QuickSortUtil.quickSort(big_array, 0, big_array.length-1,
 //          PopulateDataUtil.getAscendingNums(big_array.length));
-        	SortingAlgorithm.bubblesort(big_array);
-            assertTrue(SortingUtil.isAscending(big_array));
+        	/*SortingAlgorithm.bubblesort(big_array);
+            assertTrue(SortingUtil.isAscending(big_array));*/
         }
 
     }

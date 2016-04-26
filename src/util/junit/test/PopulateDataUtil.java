@@ -34,5 +34,12 @@ public class PopulateDataUtil {
 			nums[i] = r.nextInt(range)+1;
 		return nums;
 	}
+	public static Integer[] getRandomDataObjs(int size, int range){
+		Integer[] nums = new Integer[size];
+		Random r = new Random();
+		for(int i=0;i<size;i++)
+			nums[i] = r.nextInt(range)+1;
+		return nums;
+	}
 	
 }
