@@ -26,10 +26,10 @@ public class Item69 {
     void showCountDownLatch() throws InterruptedException {
         CountDownLatch countDownLatch = new CountDownLatch(10 );
         for(int i=0;i<10;i++){
-            new Thread(new MyTask(countDownLatch));
+            new Thread(new MyTask(countDownLatch)).start();
         }
         countDownLatch.await();
-        System.out.println("all threads are dead");
+        System.out.println("all threads are ready");
     }
 
     public static void main(String[] args) throws InterruptedException {
