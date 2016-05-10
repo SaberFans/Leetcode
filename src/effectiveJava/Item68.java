@@ -8,31 +8,50 @@ import java.util.concurrent.*;
 public class Item68 {
 
     void ScheduleExecutorServiceDemo(){
-        final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
+        final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
 
         Runnable task = new Runnable() {
             @Override
             public void run() {
-                System.out.println("beep /1sec");
+                System.out.println("beep 1 /1sec");
             }
         };
 
-       // final ScheduledFuture<?> ret = executorService.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
-
-        executorService.schedule(new Runnable() {
+        Runnable twoSec_Task = new Runnable(){
             @Override
             public void run() {
-                System.out.println("hello");
-                //ret.cancel(true);
+                System.out.println("beep 2 /2sec");
+            }
+        };
+
+       final ScheduledFuture<?> ret1 = executorService.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
+        final ScheduledFuture<?> ret2 = executorService.scheduleAtFixedRate(twoSec_Task, 0, 2, TimeUnit.SECONDS);
+
+
+       executorService.schedule(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("stop the beep 1");
+                ret1.cancel(true);
+
+                //this  shutdown will pause all scheduled submission, but all one-show submission will continue to proceed
                 //executorService.shutdown();
             }
         }, 3, TimeUnit.SECONDS );
 
-        //executorService.shutdown();
+        executorService.schedule(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("stop the beep 2");
+                ret2.cancel(true);
+                executorService.shutdown();
+            }
+        }, 10, TimeUnit.SECONDS );
+
     }
 
     ExecutorService fixedThreadPoolExample(){
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         executorService.submit(new Runnable() {
             @Override
@@ -73,13 +92,9 @@ public class Item68 {
         return executorService;
     }
     public static void main(String[] args) throws InterruptedException{
-        //new Item68().ScheduleExecutorServiceDemo();
+        new Item68().ScheduleExecutorServiceDemo();
 
-        ExecutorService service = new Item68().fixedThreadPoolExample();
-
-        Thread.sleep(10);
-        service.shutdown();
-
+        //ExecutorService service = new Item68().fixedThreadPoolExample();
     }
 
 }
