@@ -55,7 +55,7 @@ public class LinkedListUtil {
         for (int i = 7; i <= 10; i++)
             org.junit.Assert.assertEquals(findNthFromLast(head, i), null);
     }
-    void printLinkedList(Node head){
+    static public void printLinkedList(Node head){
         while(head!=null){
             System.out.print(head.getData() + "->");
             head= head.next();
