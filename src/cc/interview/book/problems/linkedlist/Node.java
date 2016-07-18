@@ -5,7 +5,7 @@ package cc.interview.book.problems.linkedlist;
  */
 public class Node {
     private Node next= null;
-    private int data;
+    private int data = -1;
 
     public Node(Node next) {
         this.next = next;
@@ -54,6 +54,9 @@ public class Node {
 
     @Override
     public String toString() {
-        return String.valueOf(data);
+        if (data != -1)
+            return String.valueOf(data);
+        else
+            return super.toString();
     }
 }

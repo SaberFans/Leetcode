@@ -63,7 +63,7 @@ public class LinkedListUtil {
         System.out.println("null");
     }
 
-    Node generateLongUniqueLinkedList() {
+    public static Node generateLongUniqueLinkedList() {
         Node p0 = new Node(null);
         p0.setData(0);
         Node p1 = new Node(p0);
@@ -79,7 +79,8 @@ public class LinkedListUtil {
 
         return p5;
     }
-    Node generateLinkedList(){
+
+    public static Node generateLinkedList() {
         Node end = new Node(null);
         end.setData(1);
         Node p3 = new Node(end);
@@ -90,6 +91,34 @@ public class LinkedListUtil {
         p1.setData(1);
 
         return p1;
+    }
+
+    public static Node generateLoopedLL() {
+
+        Node p1 = new Node(null);
+        Node p2 = new Node(p1);
+        Node p3 = new Node(p2);
+        Node p4 = new Node(p3);
+
+        Node p5 = new Node(p4);
+        Node p6 = new Node(p5);
+        Node p7 = new Node(p6);
+
+        // re-assign p1's following node.
+        p1.setNext(p4);
+
+        return p7;
+    }
+
+    public static Node generateLoopedLLTiny() {
+        Node p1 = new Node(null);
+        p1.setData(1);
+        Node p2 = new Node(p1);
+        p2.setData(2);
+
+        // bring in loop
+        p1.setNext(p2);
+        return p2;
     }
 
     @Test
