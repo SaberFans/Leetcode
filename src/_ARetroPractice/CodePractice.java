@@ -12,8 +12,9 @@ public class CodePractice {
             lengthA = arrA.length;
         if(arrB!=null)
             lengthB = arrB.length;
-        if(lengthA==0&&lengthB==0)
-            return;
+        if(lengthA==0&&lengthB==0){
+            // do nothing
+        }
         else if(lengthA==0){
             System.out.println(arrB[lengthB/2]);
         }
@@ -45,13 +46,12 @@ public class CodePractice {
             }
             System.out.println(median);
         }
-
-        return;
-
-
     }
     public static void main(String[]args){
         new CodePractice().getMedian(new int[]{-1,0,1}, new int[]{2,4,5});
+        new CodePractice().getMedian(new int[]{-1,0,1}, new int[]{2,4,5,6,7,8,9});
+        new CodePractice().getMedian(new int[]{-1,0,1,2,4,5,6}, new int[]{7,8,9});
+        new CodePractice().getMedian(new int[]{-1,0,1}, new int[]{0,1,2});
     }
 
 }
