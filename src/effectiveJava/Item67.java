@@ -40,13 +40,14 @@ public class Item67 {
 		void notify(E elem){
 			synchronized (observers) {
 				for(Observer<E> observer: observers){
-					observer.added(this, elem);
+					observer.added(this, elem);   // will cause problem here, because different object method invocation,
+												 // could cause concurrency problem, as the lock is passed over as well.
 				}
 			}
 		}
 		
 		/**
-		 * The method will trigger a concurrent modifcaiton exception, by
+		 * The method will trigger a concurrent modification exception, by
 		 * removing from the list while the iterating it.
 		 */
 		static void concurrentModificationException(){
@@ -88,10 +89,10 @@ public class Item67 {
 								
 								@Override
 								public void run() {
-									observableset.removeObserver(observer);  // the observableset is locked by main notify thread.
+									observableset.removeObserver(observer);  // the observer is locked by main notify thread.
 									System.out.println("app");
 								}
-							}).get();
+							}).get();   // this thread won't exit until the end of world, just remove the get();
 						}
 						catch(Exception e){
 							throw new AssertionError(e.getCause());
@@ -109,7 +110,9 @@ public class Item67 {
 			}
 		}
 		public static void main(String[] args) {
-			concurrentModificationException();
+			// concurrentModificationException();
+			deadLockExample();
+			
 		}
 		
 	}

@@ -55,6 +55,28 @@ public class LinkedListUtil {
         for (int i = 7; i <= 10; i++)
             org.junit.Assert.assertEquals(findNthFromLast(head, i), null);
     }
+
+    public static void deleteDuplicates(Node head){
+
+        Node nextNode = head.next();
+        Node previousNode = head;   // keep track of last non-duplicate node.
+
+        while(nextNode!=null){
+            Node newHead = head;
+            while(newHead!=nextNode){
+                if(newHead.getData()==nextNode.getData()){
+                    previousNode.setNext(nextNode.next());
+                    break;
+                }
+                newHead = newHead.next();
+            }
+            if(newHead==nextNode){
+                previousNode = nextNode;
+
+            }
+            nextNode = nextNode.next();
+        }
+    }
     static public void printLinkedList(Node head){
         while(head!=null){
             System.out.print(head.getData() + "->");
@@ -91,6 +113,38 @@ public class LinkedListUtil {
         p1.setData(1);
 
         return p1;
+    }
+    Node generateDuplicatesLinkedList(){
+        Node end = new Node(null);
+        end.setData(1);
+        Node p4 = new Node(end);
+        p4.setData(2);
+        Node p3 = new Node(p4);
+        p3.setData(0);
+        Node p2 = new Node(p3);
+        p2.setData(1);
+        Node p1 = new Node(p2);
+        p1.setData(1);
+        Node p0 = new Node(p1);
+        p0.setData(2);
+
+        return p0;
+    }
+    Node generateUniqueLinkedList(){
+        Node end = new Node(null);
+        end.setData(1);
+        Node p4 = new Node(end);
+        p4.setData(2);
+        Node p3 = new Node(p4);
+        p3.setData(3);
+        Node p2 = new Node(p3);
+        p2.setData(4);
+        Node p1 = new Node(p2);
+        p1.setData(5);
+        Node p0 = new Node(p1);
+        p0.setData(6);
+
+        return p0;
     }
 
     public static Node generateLoopedLL() {
@@ -134,5 +188,17 @@ public class LinkedListUtil {
         org.junit.Assert.assertEquals(headNode1, headNode2);
 
 
+    }
+    @Test
+    public void testDuplicatesDelete(){
+        Node headNode1 = generateLinkedList();
+        deleteDuplicates(headNode1);
+        printLinkedList(headNode1);
+        headNode1 = generateDuplicatesLinkedList();
+        deleteDuplicates(headNode1);
+        printLinkedList(headNode1);
+        headNode1 = generateUniqueLinkedList();
+        deleteDuplicates(headNode1);
+        printLinkedList(headNode1);
     }
 }
