@@ -3,7 +3,7 @@ package leetcode.easy;
 import java.util.ArrayList;
 import java.util.List;
 
-public class _118PascalTriagle {
+public class _118PascalTriangle {
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> pascalTr = new ArrayList<>();
         List<Integer> cur_line = new ArrayList<>();
