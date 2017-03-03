@@ -32,7 +32,21 @@ public class _437PathSumIII {
         return 0;
     }
 
+    public int pathSumSlow(TreeNode root, int sum){
+        if(root!=null)
+            return recursivePathSum(root, sum, 0)+ pathSumSlow(root.left, sum)+pathSumSlow(root.right, sum);
+        return 0;
+    }
+    private int recursivePathSum(TreeNode root, int target, int sum){
+        if(root!=null){
+            sum += root.val;
+            int res = sum==target? 1: 0;
+            return  res + recursivePathSum(root.left, target, sum) + recursivePathSum(root.right, target, sum);
+        }
+        return 0;
+    }
+
     public static void main(String[] args) {
-        System.out.println(new _437PathSumIII().pathSum(TreeUtil.convertArrayToTree(new int[]{0,0,0,0}), 0));
+        System.out.println(new _437PathSumIII().pathSumSlow(TreeUtil.convertArrayToTree(new Integer[]{0,0,0}), 0));
     }
 }
