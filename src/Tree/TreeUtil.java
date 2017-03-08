@@ -69,11 +69,27 @@ public class TreeUtil {
         }
         return root;
     }
+    /* delete min for BST */
+    static private TreeNode deleteMin(TreeNode root){
+        if(root==null)
+            return null;
+        if(root.left==null){
+            return root.right==null?null: root.right;
+        }
+        else {
+            root.left = deleteMin(root.left);
+            return root;
+        }
+    }
 
     public static void main(String[] args) {
-        Integer [] tree={3,9,20,null,null,15,7};
+        Integer [] tree={10,6,14,4,8,12,16,2,5,7,9,11,13,15,17};
         TreeNode root = convertArrayToTree(tree);
-        System.out.println(root);
+        levelTravel(root);
+        root = deleteMin(root);
+        System.out.println();
+        levelTravel(root);
+
 
     }
 }
