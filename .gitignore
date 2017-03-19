@@ -14,7 +14,7 @@ hs_err_pid*
 # Intellij files
 *.iml
 .idea
-
+out
 
 # gitignore itself
 .gitignore
