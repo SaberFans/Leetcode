@@ -11,7 +11,12 @@ public class TreeNode{
     // new att for populating right pointer.
     TreeNode next;
 
-    TreeNode(int x) {
-	val = x;
+    public TreeNode(int x) {
+	    val = x;
+    }
+
+    @Override
+    public String toString() {
+        return TreeUtil.levelTravel(this);
     }
 }

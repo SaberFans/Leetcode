@@ -26,26 +26,34 @@ public class TreeUtil {
         node.right = getBalancedBST(array, mid+1, high);
         return node;
     }
-    // for incomplete tree, this method won't work perfectly
-    // as to correctly handle when to print on the next level...
-    static public void levelTravel(TreeNode node){
-        Deque<TreeNode> nodes = new LinkedList<>();
-        int count = 0;
 
+    static public String levelTravel(TreeNode node){
+        Deque<Object> nodes = new LinkedList<>();
+        StringBuilder output = new StringBuilder();
         nodes.add(node);
+        nodes.add("stop");   // as a control flag for new line.
         while(!nodes.isEmpty()){
-            TreeNode curNode = nodes.pollFirst();
-            String val = curNode==null? "null": Integer.toString(curNode.val);
-            System.out.print(val+" ");
-
+            Object curNode = nodes.pollFirst();
             if(curNode!=null){
-                nodes.add(curNode.left);
-                nodes.add(curNode.right);
-                count+=2;
+                TreeNode curTNode = (TreeNode) curNode;
+                output.append(Integer.toString(curTNode.val)).append(" ");
+                nodes.add(curTNode.left);
+                nodes.add(curTNode.right);
+                if(nodes.peekFirst()!=null && nodes.peekFirst() instanceof String){
+                    output.append("\n");
+                    nodes.pollFirst();
+                    nodes.add("stop");
+                }
             }
-            if(count==nodes.size())
-                System.out.println();
+            else {
+                output.append("null ");
+                if(nodes.peekFirst()!=null && nodes.peekFirst() instanceof String){
+                    output.append("\n");
+                    nodes.pollFirst();
+                }
+            }
         }
+        return output.toString();
     }
     static public TreeNode convertArrayToTree(Integer []array){
         TreeNode root = null;
