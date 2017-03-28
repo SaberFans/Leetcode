@@ -149,6 +149,8 @@ public class TexasPokerManagement {
 
         Collections.sort(pokersetlit);
 
+        System.out.println(pokersetlit);
+
     }
 
 

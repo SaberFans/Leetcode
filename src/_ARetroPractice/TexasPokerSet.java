@@ -71,7 +71,7 @@ public class TexasPokerSet implements Comparable{
     public int compareTo(Object o) {
         if( o instanceof TexasPokerSet){
             int diff = this.facetype.getValue() - ((TexasPokerSet) o).facetype.getValue();
-            if(diff==0) return 0;
+            if(diff!=0) return diff;
             return compareValues((TexasPokerSet)o);
         }
         throw new RuntimeException("input "+ o+ " doesn't the type of "+this.getClass());
