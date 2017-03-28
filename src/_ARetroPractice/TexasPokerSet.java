@@ -15,7 +15,6 @@ public class TexasPokerSet implements Comparable{
 
     private HashMap<Integer, List<Integer>> numPerFace = new HashMap<>();
 
-
     TexasPokerSet(List<Integer> values, String []origin, PokerFaceType facetype) {
         this.facetype = facetype;
         this.origin = origin;
