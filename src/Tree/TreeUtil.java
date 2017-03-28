@@ -89,7 +89,13 @@ public class TreeUtil {
             return root;
         }
     }
-
+    static public TreeNode find(TreeNode root, Integer val){
+        if(root==null || val==null)
+            return null;
+        if(val==root.val)    return root;
+        if(val>root.val) return find(root.right, val);
+        else    return find(root.left, val);
+    }
     public static void main(String[] args) {
         Integer [] tree={10,6,14,4,8,12,16,2,5,7,9,11,13,15,17};
         TreeNode root = convertArrayToTree(tree);
