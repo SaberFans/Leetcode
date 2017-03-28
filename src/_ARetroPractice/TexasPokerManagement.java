@@ -9,26 +9,7 @@ import java.util.*;
  * Created by yang on 27/03/2017.
  */
 public class TexasPokerManagement {
-    public enum PokerFaceType {
-        HIGHCARD(0),
-        ONEPAIR(1),
-        TWOPAIRS(2),
-        TREEOFAKIND(3),
-        STRAIGHT(4),
-        FLUSH(5),
-        FULLHOUSE(6),
-        FOUROFAKIND(7),
-        STRAIGHTFLUSH(8);
 
-        private final int value;
-        PokerFaceType(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-    }
     // used to determine four same or three of the same
     private static int getMaxSumOfSameElements(List collections){
         int maxReplicatesNum = 1;
@@ -43,7 +24,7 @@ public class TexasPokerManagement {
         }
         return maxReplicatesNum;
     }
-    private static List<Integer> convertValues(String []faces){
+    public static List<Integer> convertValues(String []faces){
         List<Integer>  vals = new ArrayList<>();
         for(String i: faces){
             int val = Integer.parseInt(i.substring(1));
@@ -53,74 +34,76 @@ public class TexasPokerManagement {
         Collections.sort(vals);
         return vals;
     }
-    private static HashSet<String> convertColors(String []faces){
+    public static HashSet<String> convertColors(String []faces){
         HashSet<String> colors = new HashSet<>();
         for(String face:faces){
             colors.add(face.substring(0,1));
         }
         return colors;
     }
-
+    public static boolean isFlush( HashSet<String> colors){
+        return colors.size()==1;
+    }
+    public static boolean isStraight(List<Integer> vals, HashSet<Integer> uniqVals){
+        if(uniqVals.size()==5){
+            for(int i=0;i<vals.size()-1;i++){
+                if(vals.get(i)-vals.get(i+1)!=-1)
+                    return false;
+            }
+            return true;
+        }
+        return false;
+    }
+    public static boolean isFourOfAKind(List<Integer> vals, HashSet<Integer> uniqVals){
+        int maxReplicatesNum = getMaxSumOfSameElements(vals);
+        return uniqVals.size() == 2 && maxReplicatesNum == 4;
+    }
+    public static boolean isFullHouse(List<Integer> vals, HashSet<Integer> uniqVals){
+        int maxReplicatesNum = getMaxSumOfSameElements(vals);
+        return uniqVals.size() == 2 && maxReplicatesNum == 3;
+    }
+    public static boolean isThreeOfAKind(List<Integer> vals, HashSet<Integer> uniqVals){
+        int maxReplicatesNum = getMaxSumOfSameElements(vals);
+        return uniqVals.size() == 3 && maxReplicatesNum == 3;
+    }
+    public static boolean isTwoPairs(List<Integer> vals, HashSet<Integer> uniqVals){
+        int maxReplicatesNum = getMaxSumOfSameElements(vals);
+        return uniqVals.size() == 3 && maxReplicatesNum == 2;
+    }
+    public static boolean isOnePair(List<Integer> vals, HashSet<Integer> uniqVals){
+        int maxReplicatesNum = getMaxSumOfSameElements(vals);
+        return uniqVals.size() == 4 && maxReplicatesNum == 2;
+    }
+    public static boolean isHighHand(List<Integer> vals, HashSet<Integer> uniqVals){
+        int maxReplicatesNum = getMaxSumOfSameElements(vals);
+        return uniqVals.size() == 5 && maxReplicatesNum == 1;
+    }
     private static PokerFaceType determineFaceType(String []input){
-        boolean isFlush = false;
-        boolean isFullHouse = false;
-        boolean isFourOfAKind = false;
-        boolean isStraight = false;
-        boolean isThreeOfAKind = false;
-        boolean isTwoPairs = false;
-        boolean isOnePair = false;
         HashSet<String> colors = convertColors(input);
         List<Integer> vals = convertValues(input);
         HashSet<Integer> uniqVals = new HashSet<>(vals);
 
-        if(colors.size()==1)    isFlush = true;
-
-        int maxReplicatesNum = getMaxSumOfSameElements(vals);
-
-        if(uniqVals.size()==2){
-            if(maxReplicatesNum==3)
-                isFullHouse = true;
-            else
-                isFourOfAKind = true;
-        }
-        else if(uniqVals.size()==3) {
-            if(maxReplicatesNum==3)
-                isThreeOfAKind = true;
-            if(maxReplicatesNum==2)
-                isTwoPairs = true;
-        }
-        else if(uniqVals.size()==4){
-            isOnePair = true;
-        }
-        else if(uniqVals.size()==5){
-            isStraight= true;
-            for(int i=0;i<vals.size()-1;i++){
-                if(-vals.get(i)+vals.get(i+1)!=1)
-                    isStraight=false;
-            }
-        }
-        if(isStraight&&isFlush)
+        if(isStraight(vals, uniqVals)&&isFlush(colors))
             return  PokerFaceType.STRAIGHTFLUSH;
-        if(isFourOfAKind)
+        if(isFourOfAKind(vals, uniqVals))
             return PokerFaceType.FOUROFAKIND;
-        if(isFullHouse)
+        if(isFullHouse(vals, uniqVals))
             return PokerFaceType.FULLHOUSE;
-        if(isFlush)
+        if(isFlush(colors))
             return PokerFaceType.FLUSH;
-        if(isStraight)
+        if(isStraight(vals, uniqVals))
             return  PokerFaceType.STRAIGHT;
-        if(isThreeOfAKind)
+        if(isThreeOfAKind(vals, uniqVals))
             return PokerFaceType.TREEOFAKIND;
-        if(isTwoPairs)
+        if(isTwoPairs(vals, uniqVals))
             return PokerFaceType.TWOPAIRS;
-        if(isOnePair)
+        if(isOnePair(vals, uniqVals))
             return PokerFaceType.ONEPAIR;
         return PokerFaceType.HIGHCARD;
     }
 
     public static TexasPokerSet generatePokerSet(String []input){
         PokerFaceType faceType = determineFaceType(input);
-
         return new TexasPokerSet(convertValues(input), input, faceType);
     }
     @Test
