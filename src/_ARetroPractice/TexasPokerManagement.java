@@ -1,5 +1,8 @@
 package _ARetroPractice;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import java.util.*;
 
 /**
@@ -42,8 +45,8 @@ public class TexasPokerManagement {
     }
     private static List<Integer> convertValues(String []faces){
         List<Integer>  vals = new ArrayList<>();
-        for(int i=0;i< faces.length;i++){
-            int val = Integer.parseInt(faces[i].substring(1));
+        for(String i: faces){
+            int val = Integer.parseInt(i.substring(1));
             val = val==1? 14:val;
             vals.add(val);
         }
@@ -120,17 +123,33 @@ public class TexasPokerManagement {
 
         return new TexasPokerSet(convertValues(input), input, faceType);
     }
-
-    public static void main(String[] args) {
+    @Test
+    public void test() {
         String[] poker1 = new String[]{"A1", "B1", "C1", "D2", "D3"};
         String[] poker2 = new String[]{"A1", "B1", "C1", "D2", "D2"};
         String[] poker3 = new String[]{"A1","B2", "A3", "A4", "A5"};
         String[] poker4 = new String[]{"A1","A10", "A11", "A12", "A13"};
         String[] poker5 = new String[]{"A1","A10", "B11", "A12", "A13"};
-        System.out.println(TexasPokerManagement.generatePokerSet(poker1));
-        System.out.println(TexasPokerManagement.generatePokerSet(poker2));
-        System.out.println(TexasPokerManagement.generatePokerSet(poker3));
-        System.out.println(TexasPokerManagement.generatePokerSet(poker4));
-        System.out.println(TexasPokerManagement.generatePokerSet(poker5));
+        String[] poker6 = new String[]{"A1","A10", "A11", "A10", "A1"};
+
+        Assert.assertTrue(TexasPokerManagement.generatePokerSet(poker1).getFacetype() == PokerFaceType.TREEOFAKIND);
+        Assert.assertTrue(TexasPokerManagement.generatePokerSet(poker2).getFacetype() == PokerFaceType.FULLHOUSE);
+        Assert.assertTrue(TexasPokerManagement.generatePokerSet(poker3).getFacetype() == PokerFaceType.HIGHCARD);
+        Assert.assertTrue(TexasPokerManagement.generatePokerSet(poker4).getFacetype() == PokerFaceType.STRAIGHTFLUSH);
+        Assert.assertTrue(TexasPokerManagement.generatePokerSet(poker5).getFacetype() == PokerFaceType.STRAIGHT);
+        Assert.assertTrue(TexasPokerManagement.generatePokerSet(poker6).getFacetype() == PokerFaceType.FLUSH);
+
+        List<TexasPokerSet> pokersetlit = new ArrayList<>();
+        pokersetlit.add(TexasPokerManagement.generatePokerSet(poker1));
+        pokersetlit.add(TexasPokerManagement.generatePokerSet(poker2));
+        pokersetlit.add(TexasPokerManagement.generatePokerSet(poker3));
+        pokersetlit.add(TexasPokerManagement.generatePokerSet(poker4));
+        pokersetlit.add(TexasPokerManagement.generatePokerSet(poker5));
+        pokersetlit.add(TexasPokerManagement.generatePokerSet(poker6));
+
+        Collections.sort(pokersetlit);
+
     }
+
+
 }
