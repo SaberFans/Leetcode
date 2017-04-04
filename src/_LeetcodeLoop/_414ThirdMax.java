@@ -1,4 +1,4 @@
-package leetcode.easy;
+package _LeetcodeLoop;
 
 /**
  * Created by yang on 2017/2/22.
