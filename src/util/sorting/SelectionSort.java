@@ -1,7 +1,5 @@
 package util.sorting;
 
-import java.util.List;
-
 /**
  * Selection sort which has O(N*2) comparison time for all situation.
  * 

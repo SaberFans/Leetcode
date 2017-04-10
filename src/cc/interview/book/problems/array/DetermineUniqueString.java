@@ -1,4 +1,4 @@
-package cc.interview.book.problems.data;
+package cc.interview.book.problems.array;
 
 
 import org.junit.Test;

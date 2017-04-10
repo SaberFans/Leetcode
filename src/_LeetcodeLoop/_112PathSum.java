@@ -14,6 +14,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * PathSum checks if a root-to-leaf path sums up to target sum.
+ * Only if root has no children, you compare its val with the sum.
  * Created by yang on 29/03/2017.
  */
 public class _112PathSum {

@@ -1,7 +1,5 @@
 package util.sorting;
 
-import java.util.List;
-
 /**
  * SortingAlgorithm the entry class for all types of sort algorithms.
  * @author epttwxz
