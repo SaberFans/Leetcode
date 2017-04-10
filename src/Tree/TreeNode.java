@@ -19,4 +19,22 @@ public class TreeNode{
     public String toString() {
         return TreeUtil.levelTravel(this);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==this)
+            return true;
+        if(obj instanceof TreeNode){
+            return this.rec_equals(this, (TreeNode)obj);
+        }
+        return false;
+    }
+    private boolean rec_equals(TreeNode target, TreeNode cur){
+        if(target==cur) return true;
+        if(target==null||cur==null) return false;
+        if(target.val == cur.val){
+            return rec_equals(target.left, cur.left) && rec_equals(target.right, target.right);
+        }
+        return false;
+    }
 }
