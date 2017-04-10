@@ -2,15 +2,12 @@ package sorting.utest;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 
 import util.junit.test.PopulateDataUtil;
 import util.sorting.SortingAlgorithm;
-import util.sorting.SortingUtil;
 
 public class SortingAlgorithmUnitTest {
 	@Test

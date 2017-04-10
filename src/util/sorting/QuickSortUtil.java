@@ -1,14 +1,5 @@
 package util.sorting;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.Random;
-
-import org.junit.Test;
-
-import util.junit.test.PopulateDataUtil;
-
 public class QuickSortUtil {
 	/**
 	 * Quick Sort which keep a transformed indexes of the input array.
