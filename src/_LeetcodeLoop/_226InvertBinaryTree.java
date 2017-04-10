@@ -11,6 +11,8 @@ import org.junit.Test;
 import Tree.TreeNode;
 import Tree.TreeUtil;
 
+import static org.junit.Assert.assertTrue;
+
 public class _226InvertBinaryTree {
 	public TreeNode invertTree(TreeNode root) {
 		if(root!=null){
@@ -44,4 +46,25 @@ public class _226InvertBinaryTree {
 		TreeNode root_new = new _226InvertBinaryTree().invertTree_non_recur(root);
 		System.out.println(root_new);
 	}
+    @Test
+    public void test2() {
+        TreeNode node = TreeUtil.convertArrayToTree(new Integer[]{1, null, 3});
+        TreeNode target = TreeUtil.convertArrayToTree(new Integer[]{1, 3});
+        TreeNode node_inverted = new _226InvertBinaryTree().invertTree(node);
+        assertTrue(node_inverted.equals(target));
+    }
+    @Test
+    public void test3(){
+        TreeNode node = TreeUtil.convertArrayToTree(new Integer[]{1, null, 2,null, 3});
+        TreeNode target = TreeUtil.convertArrayToTree(new Integer[]{1, 2, null, 3});
+        TreeNode node_inverted = new _226InvertBinaryTree().invertTree(node);
+        assertTrue(node_inverted.equals(target));
+    }
+    @Test
+    public void test4(){
+        TreeNode node = TreeUtil.convertArrayToTree(new Integer[]{1, null, 2, 3, null, 4});
+        TreeNode target = TreeUtil.convertArrayToTree(new Integer[]{1, 2, null, null, 3, null, 4});
+        TreeNode node_inverted = new _226InvertBinaryTree().invertTree(node);
+        assertTrue(node_inverted.equals(target));
+    }
 }
