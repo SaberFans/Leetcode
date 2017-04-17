@@ -7,7 +7,8 @@ import org.junit.Test;
 import util.junit.test.PopulateDataUtil;
 
 
-class InsertionSort {
+public class InsertionSort
+{
 	public final static InsertionSort InsertionSortinstance  = new InsertionSort(); 
 	/**
 	 * Original Insertion Sort.
@@ -57,8 +58,8 @@ class InsertionSort {
 	}
 	@Test
 	public void testOrdinary(){
-		int []arr = {7,8,9,2,1,0};
-		pairInsertion(arr);
+		int []arr = {1,4,1,2,3};
+		new InsertionSort().pairInsertion(arr);
 		System.out.println(Arrays.toString(arr));
 	}
 	
@@ -67,7 +68,7 @@ class InsertionSort {
 		int arr[] = {1, 4,3,2, 7, 9,8};
 		new InsertionSort().pairInsertion(arr);
 	}
-
+	// this works for pairs of numbers already in order
 	public void pairInsertion(int[]input){   // study the logic of this, and why should use this?
 
 		int left = 0, right = input.length-1;
