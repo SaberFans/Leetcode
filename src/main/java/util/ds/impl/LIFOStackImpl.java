@@ -37,17 +37,17 @@ public class LIFOStackImpl<E> {
 	@Test
 	public void test_mystack_validity() throws Exception {
 		LIFOStackImpl stack = new LIFOStackImpl();
-		for(int i=0;i<Integer.MAX_VALUE/30;i++)
+		for(int i=0;i<Integer.MAX_VALUE/300;i++)
 			stack.push(i);
-		for(int i=Integer.MAX_VALUE/30-1;i>=0;i--)
+		for(int i=Integer.MAX_VALUE/300-1;i>=0;i--)
 			assertEquals(i, stack.pop());
 	}
 	@Test
 	public void test_stack_validity() throws Exception {
 		Stack stack = new Stack();
-		for(int i=0;i<Integer.MAX_VALUE/30;i++)
+		for(int i=0;i<Integer.MAX_VALUE/300;i++)
 			stack.push(i);
-		for(int i=Integer.MAX_VALUE/30-1;i>=0;i--)
+		for(int i=Integer.MAX_VALUE/300-1;i>=0;i--)
 			assertEquals(i, stack.pop());
 	}
 	
