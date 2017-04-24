@@ -3,6 +3,11 @@
  */
 package _LeetcodeLoop;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+
+
 /**
  * Maximum profits with no limit of transaction numbers.
  * Fees will apply for each transaction.
@@ -45,5 +50,11 @@ public class _XBestTimeToBuyAndSell {
 			maxPt = globalMax[prices.length-1];
 		}
 		return maxPt;
+	}
+	@Test
+	public void testValid(){
+		int prices[]=new int[]{100,120,90,20,1000};
+		int fee = 30;
+		Assert.assertEquals(new _XBestTimeToBuyAndSell().maxProfit(prices, fee), 950);
 	}
 }
