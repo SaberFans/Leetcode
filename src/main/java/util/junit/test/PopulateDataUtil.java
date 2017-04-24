@@ -3,9 +3,11 @@ package util.junit.test;
 import java.util.Random;
 
 public class PopulateDataUtil {
+
 	public static final int[] empty_array_ints= {};
 	public static final int[] one_array_int = {1};
 	public static final int[] test_array_ints = {1,2,3,4,5,3,2,1};
+	public static final int[] test_array_ints_1 = {1,2,3,4,5,3,2,1};
 	public static final int[] test_array_ints_2 = {-1,-1};
 	public static final int[] test_array_ints_3 = {2,9,11, 2, 4};
 	public static final int[] qs_arry = {3, 4, 5, 2, 1};
