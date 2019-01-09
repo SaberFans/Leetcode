@@ -1,4 +1,4 @@
-package _ARetroPractice;
+package practice;
 
 import java.util.*;
 import java.util.regex.Matcher;

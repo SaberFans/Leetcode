@@ -1,9 +1,9 @@
-package _ARetroPractice;
+package practice;
 
 import java.util.HashSet;
 import java.util.List;
 
-import _ARetroPractice.PokerFaceType;
+import practice.PokerFaceType;
 
 /**
  * Created by epttwxz on Apr 18, 2017

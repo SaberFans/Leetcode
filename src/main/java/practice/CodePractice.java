@@ -1,4 +1,4 @@
-package _ARetroPractice;
+package practice;
 
 /**
  * Created by epttwxz on 22/11/16.
